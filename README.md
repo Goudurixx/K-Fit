@@ -1,8 +1,8 @@
-# README #
+# K-Fit #
 
-This README would normally document whatever steps are necessary to get your application up and running.
 
-### What is this repository for? ###
+
+### Une application conçu pour l'argent, au service de l'utilisateur ###
 
 * Quick summary
 * Version
