@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.presentation.features.login.LoginScreen
 import com.example.k_fit.presentation.features.loginOrRegister.LoginOrRegisterScreen
+import com.example.k_fit.presentation.features.register.RegisterScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
 fun Router(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "login"
+    startDestination: String = "loginOrRegister"
 ) {
     NavHost(
         modifier = modifier,
@@ -34,8 +35,12 @@ fun Router(
     ) {
         composable("loginOrRegister") {
             LoginOrRegisterScreen(
-                onNavigateToFriends = {
+                onNavigateToLogin = {
                     navController.navigate("login") {
+                    }
+                },
+                onNavigateToRegister = {
+                    navController.navigate("register") {
                     }
                 },
             )
@@ -44,6 +49,11 @@ fun Router(
             LoginScreen(
                 onNavigateToFriends = {
                 },
+            )
+        }
+        composable("register") {
+            RegisterScreen(
+
             )
         }
     }
