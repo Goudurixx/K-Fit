@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun LoginScreen(onNavigateToFriends: () -> Unit){
+fun LoginScreen(onNavigateToFriends: () -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -19,4 +19,3 @@ fun LoginScreen(onNavigateToFriends: () -> Unit){
         Text(text = "LoginScreen")
     }
 }
-

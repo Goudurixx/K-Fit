@@ -10,9 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.k_fit.ui.theme.PrimaryBackgroundColor
-import com.example.k_fit.ui.theme.PrimaryButtonTextColor
-
+import com.example.k_fit.ui.theme.*
 @Composable
 fun CustomButtonComponent(
     title: String, onNavigateToFriends: () -> Unit,
