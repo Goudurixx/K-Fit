@@ -8,10 +8,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun LoginScreen(onNavigateToFriends: () -> Unit){
-    val viewModel by remember { mutableStateOf(LoginViewModel()) }
+fun LoginScreen(onNavigateToFriends: () -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
