@@ -12,12 +12,15 @@ import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.presentation.features.login.LoginScreen
 import com.example.k_fit.presentation.features.loginOrRegister.LoginOrRegisterScreen
 import com.example.k_fit.presentation.features.register.RegisterScreen
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
         setContent {
             Router()
         }
@@ -50,12 +53,17 @@ fun Router(
         composable("login") {
             LoginScreen(
                 onNavigateToFriends = {
+                    navController.navigate("loginOrRegister") {
+                    }
                 },
             )
         }
         composable("register") {
             RegisterScreen(
-
+                onNavigateToFriends = {
+                    navController.navigate("loginOrRegister") {
+                    }
+                },
             )
         }
     }
