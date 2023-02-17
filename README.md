@@ -19,9 +19,7 @@
 
 ### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* Writing teses
 
 ### Who do I talk to? ###
 
