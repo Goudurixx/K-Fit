@@ -27,24 +27,19 @@ fun CustomInputTextComponent(
     inputText: String,
     modifier: Modifier = Modifier
 ) {
-    var inputText by rememberSaveable { mutableStateOf(inputText) }
     Column {
         OutlinedTextField(
             label = { Text(text = title) },
             value = inputText,
             placeholder = { Text(hint) },
-            onValueChange = { inputText = it },
-            keyboardOptions = KeyboardOptions(
-                autoCorrect = true,
-                keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Next
-            ),
+            onValueChange = onValueChange,
             textStyle = TextStyle(
                 fontSize = 20.sp,
                 color = HintTextColor
             ),
             modifier = modifier.fillMaxWidth(),
-            readOnly = false
+            readOnly = false,
+            singleLine = true
         )
         Text(
             text = description,

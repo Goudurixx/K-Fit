@@ -24,17 +24,17 @@ import com.example.k_fit.ui.theme.*
 @Composable
 fun CustomInputPasswordComponent(
     title: String,
-    hint: String,
-    inputText: String,
-    modifier: Modifier = Modifier
-) {
-    var passwordVisible by rememberSaveable { mutableStateOf(false) }
-    var password by rememberSaveable { mutableStateOf(inputText) }
+    inputPassword: String,
+    modifier: Modifier = Modifier,
+    onValueChange: (String) -> Unit,
+    ) {
+    var passwordVisible by rememberSaveable {mutableStateOf(false)}
+
     OutlinedTextField(
         label = { Text(text = title) },
-        value = password,
-        placeholder = { Text(hint) },
-        onValueChange = { password = it },
+        value = inputPassword,
+        placeholder = { Text("Password") },
+        onValueChange = onValueChange,
         singleLine = true,
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(
@@ -69,7 +69,7 @@ fun PreviewCustomPasswordTextComponent() {
     val inputText: String = ""
     CustomInputPasswordComponent(
         "Title of the input",
-        hint = "Hint for the input",
-        inputText = inputText,
+        inputPassword = inputText,
+        onValueChange = {}
     )
 }

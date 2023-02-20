@@ -19,8 +19,6 @@ import com.example.k_fit.presentation.features.register.RegisterViewModel
 @Composable
 fun LoginScreen(onNavigateToFriends: () -> Unit) {
     val viewModel = hiltViewModel<RegisterViewModel>()
-    val email: String by viewModel.email.observeAsState(initial = "")
-    val password: String by viewModel.password.observeAsState("")
     val onValueChange: (String) -> Unit = { s: String -> println(s) }
     Column(
         verticalArrangement = Arrangement.Center,
@@ -31,31 +29,10 @@ fun LoginScreen(onNavigateToFriends: () -> Unit) {
 
             )
     ) {
-        CustomInputTextComponent(
-            title = "E-mail",
-            hint = "email@email.email",
-            inputText = email,
-            onValueChange = onValueChange,
-            description = "Enter your email here"
+        CustomButtonComponent(
+            title = "login", onNavigateToFriends
         )
-        CustomInputPasswordComponent(
-            title = "Password",
-            hint = "••••••••",
-            inputText = password
-        )
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    all = 16.dp
 
-                )
-
-        ) {
-            CustomButtonComponent(
-                title = "login", onNavigateToFriends
-            )
-        }
     }
 
 }

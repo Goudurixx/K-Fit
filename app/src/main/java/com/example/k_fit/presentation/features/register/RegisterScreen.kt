@@ -1,12 +1,15 @@
 package com.example.k_fit.presentation.features.register
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.k_fit.R
 import com.example.k_fit.presentation.components.CustomButtonComponent
 import com.example.k_fit.presentation.components.CustomInputPasswordComponent
 import com.example.k_fit.presentation.components.CustomInputTextComponent
@@ -15,12 +18,10 @@ import com.example.k_fit.presentation.components.CustomInputTextComponent
 fun RegisterScreen(onNavigateToFriends: () -> Unit) {
     val viewModel = hiltViewModel<RegisterViewModel>()
 
-    val email: String by viewModel.email.observeAsState(initial = "")
-    val password: String by viewModel.password.observeAsState("")
-// val passwordConfirm: MutableState<String> = remember { mutableStateOf("") }
-    val loading: Boolean by viewModel.loading.observeAsState(initial = false)
-    val onValueChange: (String) -> Unit = { s: String -> println(s) }
-
+    val email by viewModel.email.collectAsState()
+    val password by viewModel.password.collectAsState()
+    val passwordConfirm by viewModel.passwordConfirmation.collectAsState()
+    val isPasswordDifferent by viewModel.isPasswordDifferent.collectAsState()
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -41,14 +42,16 @@ fun RegisterScreen(onNavigateToFriends: () -> Unit) {
             )
         CustomInputPasswordComponent(
             title = "Password",
-            hint = "••••••••",
-            inputText = password
+            inputPassword = password,
+            onValueChange = { viewModel.updatePassword(it) }
         )
-//        CustomInputPasswordComponent(
-//            title = "Confirm Password",
-//            hint = "••••••••",
-//            inputText = passwordConfirm
-//        )
+        CustomInputPasswordComponent(
+            title = "Confirm Password",
+            inputPassword = passwordConfirm,
+            onValueChange = { viewModel.updatePasswordConfirmation(it) }
+        )
+        if (isPasswordDifferent)
+            Text(text = stringResource(R.string.different_password))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
