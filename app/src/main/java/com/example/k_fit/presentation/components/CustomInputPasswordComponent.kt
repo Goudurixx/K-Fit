@@ -29,8 +29,8 @@ fun CustomInputPasswordComponent(
     inputPassword: String,
     imeAction: ImeAction,
     keyboardActions: (KeyboardActionScope.() -> Unit)? = null,
-    modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
     ) {
     var passwordVisible by rememberSaveable {mutableStateOf(false)}
 
@@ -59,7 +59,6 @@ fun CustomInputPasswordComponent(
                 Icons.Filled.Visibility
             else Icons.Filled.VisibilityOff
 
-            // Please provide localized description for accessibility services
             val description = if (passwordVisible) "Hide password" else "Show password"
 
             IconButton(onClick = {passwordVisible = !passwordVisible}){

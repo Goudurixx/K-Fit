@@ -22,7 +22,6 @@ fun RegisterScreen(
 ) {
 
     val registerState by viewModel.registerState.collectAsState()
-    val emailDescription = "Enter your email here"
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -36,8 +35,6 @@ fun RegisterScreen(
             hint = "email@email.email",
             inputText = registerState.email,
             onValueChange = { viewModel.updateEmail(it) },
-            description = emailDescription,
-            showDescription = registerState.isEmailValid
         )
         if (!registerState.isEmailValid) {
             Text(

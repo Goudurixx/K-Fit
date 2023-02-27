@@ -1,7 +1,6 @@
 package com.example.k_fit.presentation.components
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
@@ -12,7 +11,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.k_fit.ui.theme.*
 
@@ -20,10 +18,8 @@ import com.example.k_fit.ui.theme.*
 fun CustomInputTextComponent(
     title: String,
     hint: String,
-    description: String,
     onValueChange: (String) -> Unit,
     inputText: String,
-    showDescription: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -44,12 +40,7 @@ fun CustomInputTextComponent(
             readOnly = false,
             singleLine = true
         )
-        if (showDescription) {
-            Text(
-                text = description,
-                Modifier.absoluteOffset(x = 16.dp)
-            )
-        }
+
     }
 }
 
@@ -61,9 +52,7 @@ fun PreviewCustomInputTextComponent() {
     CustomInputTextComponent(
         "Title of the input",
         hint = "Hint for the input",
-        description = "Enter the description of what to enter here, leave blank for nothing",
         onValueChange = onValueChange,
         inputText = inputText,
-        showDescription = true,
     )
 }
