@@ -8,52 +8,89 @@ import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor() : BaseViewModel() {
     private val auth: FirebaseAuth = Firebase.auth
 
-    private val _email = MutableStateFlow("")
-    val email: StateFlow<String> = _email
+    private val _registerState = MutableStateFlow(RegisterState())
+    val registerState: StateFlow<RegisterState> = _registerState
 
-    private val _password = MutableStateFlow("")
-    val password: StateFlow<String> = _password
-
-    private val _passwordConfirmation = MutableStateFlow("")
-    val passwordConfirmation: StateFlow<String> = _passwordConfirmation
-
-    private val _isPasswordDifferent = MutableStateFlow(false)
-    val isPasswordDifferent: StateFlow<Boolean> = _isPasswordDifferent
     fun updateEmail(newEmail: String) {
-        _email.value = newEmail
+        _registerState.update { currentState ->
+            currentState.copy(email = newEmail)
+        }
     }
 
     fun updatePassword(newPassword: String) {
-        _password.value = newPassword
+        _registerState.update { currentState ->
+            currentState.copy(password = newPassword)
+        }
     }
+
     fun updatePasswordConfirmation(confirmPassword: String) {
-        _passwordConfirmation.value = confirmPassword
+        _registerState.update { currentState ->
+            currentState.copy(passwordConfirm = confirmPassword)
+        }
+    }
+
+    private fun updateIsEmailValid(email: String?): Boolean {
+        val pattern: Pattern
+        val matcher: Matcher
+        val EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\$"
+        pattern = Pattern.compile(EMAIL_PATTERN)
+        matcher = pattern.matcher(email)
+        _registerState.update { currentState ->
+            currentState.copy(isEmailValid = matcher.matches())
+        }
+        return _registerState.value.isEmailValid
+    }
+
+    private fun updateIsPasswordValid(password: String?) {
+        val pattern: Pattern
+        val matcher: Matcher
+        val PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{6,}$"
+        pattern = Pattern.compile(PASSWORD_PATTERN)
+        matcher = pattern.matcher(password)
+        _registerState.update { currentState ->
+            currentState.copy(isPasswordValid = matcher.matches())
+        }
+    }
+
+    private fun updateIsPasswordDifferent(password: String, passwordConfirm: String) {
+        _registerState.update { currentState ->
+            currentState.copy(isPasswordDifferent = (password != passwordConfirm))
+        }
+    }
+
+    private fun isFormValid(): Boolean {
+        val email: String = _registerState.value.email
+        val password: String = _registerState.value.password
+        val passwordConfirm: String = _registerState.value.passwordConfirm
+
+        updateIsEmailValid(email)
+        updateIsPasswordValid(password)
+        updateIsPasswordDifferent(password, passwordConfirm)
+
+        return _registerState.value.isEmailValid && _registerState.value.isPasswordValid && !_registerState.value.isPasswordDifferent
     }
 
     // Register user
     fun registerUser(home: () -> Unit) {
-        val email: String = _email.value
-        val password: String =
-            _password.value
-        val passwordConfirm: String = _passwordConfirmation.value
-
-        if(password == passwordConfirm){
-            auth.createUserWithEmailAndPassword(email, password)
+        if (isFormValid()) {
+            auth.createUserWithEmailAndPassword(
+                _registerState.value.email,
+                _registerState.value.password
+            )
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         home()
                     }
                 }
-        }else{
-            _isPasswordDifferent.value = true
         }
-
-
     }
 }

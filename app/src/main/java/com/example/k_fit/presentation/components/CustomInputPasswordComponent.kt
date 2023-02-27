@@ -1,6 +1,8 @@
 package com.example.k_fit.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActionScope
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -25,6 +27,8 @@ import com.example.k_fit.ui.theme.*
 fun CustomInputPasswordComponent(
     title: String,
     inputPassword: String,
+    imeAction: ImeAction,
+    keyboardActions: (KeyboardActionScope.() -> Unit)? = null,
     modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit,
     ) {
@@ -38,9 +42,11 @@ fun CustomInputPasswordComponent(
         singleLine = true,
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(
-            autoCorrect = true,
             keyboardType = KeyboardType.Password,
-            imeAction = ImeAction.Next
+            imeAction = imeAction
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = keyboardActions
         ),
         textStyle = TextStyle(
             fontSize = 20.sp,
@@ -70,6 +76,7 @@ fun PreviewCustomPasswordTextComponent() {
     CustomInputPasswordComponent(
         "Title of the input",
         inputPassword = inputText,
+        imeAction = ImeAction.Go,
         onValueChange = {}
     )
 }

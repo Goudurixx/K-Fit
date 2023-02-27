@@ -25,6 +25,7 @@ fun CustomInputTextComponent(
     description: String,
     onValueChange: (String) -> Unit,
     inputText: String,
+    showDescription: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -37,14 +38,20 @@ fun CustomInputTextComponent(
                 fontSize = 20.sp,
                 color = HintTextColor
             ),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
+            ),
             modifier = modifier.fillMaxWidth(),
             readOnly = false,
             singleLine = true
         )
-        Text(
-            text = description,
-            Modifier.absoluteOffset(x = 16.dp)
-        )
+        if (showDescription) {
+            Text(
+                text = description,
+                Modifier.absoluteOffset(x = 16.dp)
+            )
+        }
     }
 }
 
@@ -59,5 +66,6 @@ fun PreviewCustomInputTextComponent() {
         description = "Enter the description of what to enter here, leave blank for nothing",
         onValueChange = onValueChange,
         inputText = inputText,
+        showDescription = true,
     )
 }
