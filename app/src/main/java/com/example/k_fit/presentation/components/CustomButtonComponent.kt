@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.example.k_fit.ui.theme.*
 @Composable
 fun CustomButtonComponent(
-    title: String, onNavigateToFriends: () -> Unit,
+    title: String, onClick: () -> Unit
 ) {
     Button(
         colors = ButtonDefaults.buttonColors(backgroundColor = PrimaryBackgroundColor),
@@ -22,7 +22,7 @@ fun CustomButtonComponent(
         modifier = Modifier
             .height(40.dp)
             .width(95.dp),
-        onClick = onNavigateToFriends) {
+        onClick = onClick) {
         Text(text = title, color = PrimaryButtonTextColor)
     }
 }

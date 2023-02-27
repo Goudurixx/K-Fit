@@ -12,7 +12,7 @@ import com.example.k_fit.presentation.components.CustomButtonComponent
 fun LoginOrRegisterScreen(
     onNavigateToLogin: () -> Unit,
     onNavigateToRegister: () -> Unit,
-    ) {
+) {
 //    val loginOrRegisterViewModel = hiltViewModel<LoginOrRegisterViewModel>()
 
     Column(
