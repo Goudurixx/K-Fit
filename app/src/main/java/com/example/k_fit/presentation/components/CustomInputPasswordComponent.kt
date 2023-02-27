@@ -72,7 +72,7 @@ fun CustomInputPasswordComponent(
 @Preview("Preview CustomButtomComponent", showBackground = true)
 @Composable
 fun PreviewCustomPasswordTextComponent() {
-    val inputText: String = ""
+    val inputText = ""
     CustomInputPasswordComponent(
         "Title of the input",
         inputPassword = inputText,

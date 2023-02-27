@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -58,7 +56,7 @@ fun CustomInputTextComponent(
 @Preview("Preview CustomButtomComponent", showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewCustomInputTextComponent() {
-    val inputText: String = ""
+    val inputText = ""
     val onValueChange: (String) -> Unit = { s: String -> println(s) }
     CustomInputTextComponent(
         "Title of the input",
