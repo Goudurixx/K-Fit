@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import javax.inject.Inject
@@ -20,6 +21,11 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
     private val _registerState = MutableStateFlow(RegisterState())
     val registerState: StateFlow<RegisterState> = _registerState
 
+    fun updateScreenStep(step: Float) {
+        _registerState.update { currentState ->
+            currentState.copy(screenStep = step)
+        }
+    }
     fun updateEmail(newEmail: String) {
         _registerState.update { currentState ->
             currentState.copy(email = newEmail)
@@ -64,6 +70,30 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
     private fun updateIsPasswordDifferent(password: String, passwordConfirm: String) {
         _registerState.update { currentState ->
             currentState.copy(isPasswordDifferent = (password != passwordConfirm))
+        }
+    }
+
+    fun updateNickName(nickName: String) {
+        _registerState.update { currentState ->
+            currentState.copy(nickName = nickName)
+        }
+    }
+
+    fun updateFirstName(firstName: String) {
+        _registerState.update { currentState ->
+            currentState.copy(firstName = firstName)
+        }
+    }
+
+    fun updateLastName(lastName: String) {
+        _registerState.update { currentState ->
+            currentState.copy(lastName = lastName)
+        }
+    }
+
+    fun updateBirthdate(birthDate: Date) {
+        _registerState.update { currentState ->
+            currentState.copy(birthDate = birthDate)
         }
     }
 

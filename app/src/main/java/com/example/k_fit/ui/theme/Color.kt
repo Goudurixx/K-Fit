@@ -10,3 +10,5 @@ val Teal200 = Color(0xFF03DAC5)
 val PrimaryBackgroundColor = Color(0xFFFFFBFE)
 val PrimaryButtonTextColor = Color(0xFF6750A4)
 val HintTextColor = Color(0xFFCAC4D0)
+
+val RedirectionButtonColor = Color(0xFFE9E8E9)

@@ -1,9 +1,9 @@
 package com.example.k_fit.presentation.components
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -23,17 +23,16 @@ import com.example.k_fit.ui.theme.*
 
 
 @Composable
-fun CustomInputTextComponent(
+fun CustomDatePickerComponent(
     title: String,
     hint: String,
     onValueChange: (String) -> Unit,
     inputText: String,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
 ) {
     Column {
         OutlinedTextField(
-            enabled = enabled,
+            enabled = false,
             label = { Text(text = title) },
             value = inputText,
             placeholder = { Text(hint) },
@@ -42,23 +41,26 @@ fun CustomInputTextComponent(
                 fontSize = 20.sp,
                 color = HintTextColor
             ),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Next
-            ),
             modifier = modifier.fillMaxWidth(),
             readOnly = false,
             singleLine = true,
+            trailingIcon = {
+                    IconButton(
+                        onClick = {},
+                    ) {
+                        Icon(imageVector = Icons.Filled.Today, "Clean field")
+                    }
+            }
         )
     }
 }
 
 @Preview("Preview CustomButtomComponent", showBackground = true, showSystemUi = true)
 @Composable
-fun PreviewCustomInputTextComponent() {
+fun PreviewCustomDatePickerComponent() {
     val inputText = ""
     val onValueChange: (String) -> Unit = { s: String -> println(s) }
-    CustomInputTextComponent(
+    CustomDatePickerComponent(
         "Title of the input",
         hint = "Hint for the input",
         onValueChange = onValueChange,
