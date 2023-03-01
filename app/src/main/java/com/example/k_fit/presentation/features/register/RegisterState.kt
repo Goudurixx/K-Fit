@@ -1,5 +1,6 @@
 package com.example.k_fit.presentation.features.register
 
+import com.example.k_fit.presentation.common.Gender
 import java.util.Date
 
 data class RegisterState(
@@ -13,5 +14,6 @@ data class RegisterState(
     var nickName: String = "",
     var firstName: String = "",
     var lastName: String = "",
-    var birthDate: Date? = null
+    var birthDate: String = "",
+    var gender: Gender? = null
 )

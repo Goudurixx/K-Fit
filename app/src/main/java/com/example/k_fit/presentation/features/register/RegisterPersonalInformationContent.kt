@@ -1,47 +1,36 @@
 package com.example.k_fit.presentation.features.register
 
-import android.app.DatePickerDialog
-import android.graphics.drawable.ColorDrawable
-import android.widget.DatePicker
+import android.content.Context
+import android.widget.ToggleButton
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Today
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.k_fit.presentation.components.CustomInputTextComponent
-import java.util.*
-import com.example.k_fit.R
+
 import com.example.k_fit.presentation.components.CustomDatePickerComponent
+import com.example.k_fit.presentation.components.CustomSegmentedButtonComponent
+import com.example.k_fit.ui.theme.HintTextColor
 
 @Composable
 fun RegisterPersonalInformation(
     viewModel: RegisterViewModel
 ) {
-
-    val mYear: Int
-    val mMonth: Int
-    val mDay: Int
-    val mCalendar = Calendar.getInstance()
-    mYear = mCalendar.get(Calendar.YEAR)
-    mMonth = mCalendar.get(Calendar.MONTH)
-    mDay = mCalendar.get(Calendar.DAY_OF_MONTH)
-    mCalendar.time = Date()
-    val mDate = remember { mutableStateOf("") }
-
-    val mDatePickerDialog = DatePickerDialog(
-        LocalContext.current, R.style.DatePickerTheme,
-        { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-            mDate.value = "$mDayOfMonth/${String.format("%02d", mMonth + 1)}/$mYear"
-        }, mYear, mMonth, mDay
-    )
-
     val registerState by viewModel.registerState.collectAsState()
+    val context = LocalContext.current
 
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .padding(
@@ -66,18 +55,35 @@ fun RegisterPersonalInformation(
             inputText = registerState.lastName,
             onValueChange = { viewModel.updateLastName(it) },
         )
-        CustomDatePickerComponent(
-            title = "Birthdate",
-            hint = "Birthdate",
-            inputText = mDate.value,
+        OutlinedTextField(
+            enabled = false,
+            label = { Text(text = "Birthdate") },
+            value = registerState.birthDate,
+            placeholder = { Text(text = "Birthdate") },
             onValueChange = {},
-            modifier = Modifier.clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-                onClick = {
-                    mDatePickerDialog.show()
-                }
+            textStyle = TextStyle(
+                fontSize = 20.sp,
+                color = HintTextColor
             ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = { viewModel.showDatePickerDialog(context) }
+                ),
+            readOnly = false,
+            singleLine = true,
+            trailingIcon = {
+                IconButton(
+                    onClick = { println(registerState) },
+                ) {
+                    Icon(imageVector = Icons.Filled.Today, "Clean field")
+                }
+            }
+        )
+        CustomSegmentedButtonComponent(
+            onOptionSelected = { viewModel.updateGender(it) }
         )
     }
 }

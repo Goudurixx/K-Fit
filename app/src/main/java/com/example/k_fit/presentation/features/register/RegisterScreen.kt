@@ -33,11 +33,16 @@ fun RegisterScreen(
             1f -> RegisterLoginInformationContent(viewModel)
             2f -> RegisterPersonalInformation(viewModel)
         }
-        Row(Modifier.padding(bottom = 64.dp, top = 64.dp)) {
-            if (registerState.screenStep == 2f)
+        Row(
+            Modifier.padding(bottom = 64.dp, top = 64.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            if (registerState.screenStep == 2f) {
                 CustomBackwardRedirectionButton {
                     viewModel.updateScreenStep(registerState.screenStep - 1)
                 }
+                Spacer(modifier = Modifier.width(20.dp))
+            }
             CustomForwardRedirectionButton {
                 viewModel.updateScreenStep(registerState.screenStep + 1)
             }
