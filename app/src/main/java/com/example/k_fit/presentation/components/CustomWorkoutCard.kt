@@ -147,6 +147,7 @@ fun CustomWorkoutCardOpened(
             ExpandableText(text = workout.instructions)
         }
     }
+    //TODO way to update the state of checkbox outside of the scope of this card
     if (openDialog) {
         Dialog(
             onDismissRequest = { openDialog = false })
@@ -187,7 +188,7 @@ fun CustomWorkoutCardOpened(
     }
 }
 
-
+//TODO Move outside
 @Composable
 fun UserImage(user: User) {
     val rainbowColorsBrush = remember {
@@ -262,6 +263,7 @@ fun WorkoutMusclesImage(workout: Workout, modifier: Modifier) {
     )
 }
 
+//TODO Move outside
 class Workout {
     var name: String
     var type: String
@@ -300,6 +302,7 @@ class Workout {
     }
 }
 
+//TODO Move outside
 class User {
     var name: String
     var profilePicture: ImageVector
@@ -355,6 +358,7 @@ fun PreviewCustomActivityCard() {
 }
 
 
+//TODO Move outside
 @Composable
 fun ExpandableText(
     text: String,
