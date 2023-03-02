@@ -113,8 +113,7 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
         }
         if (registerProfileState.value.screenStep == 2f) {
             isValid =
-                registerProfileState.value.nickName.isNotEmpty() && registerProfileState.value.firstName.isNotEmpty()
-                        && registerProfileState.value.lastName.isNotEmpty() && registerProfileState.value.birthDate.isNotEmpty()
+                registerProfileState.value.nickName.isNotEmpty() && registerProfileState.value.firstName.isNotEmpty() && registerProfileState.value.lastName.isNotEmpty() && registerProfileState.value.birthDate.isNotEmpty()
         }
         _registerProfileState.update { currentState ->
             currentState.copy(isScreenValid = isValid)
@@ -125,19 +124,20 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
     fun showDatePickerDialog(context: Context) {
         val calendar = Calendar.getInstance()
         val mDatePickerDialog = DatePickerDialog(
-            context, R.style.DatePickerTheme,
+            context,
+            R.style.DatePickerTheme,
             { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
                 _registerProfileState.update { currentState ->
                     currentState.copy(
                         birthDate = "$selectedDayOfMonth/${
                             String.format(
-                                "%02d",
-                                selectedMonth + 1
+                                "%02d", selectedMonth + 1
                             )
                         }/$selectedYear"
                     )
                 }
-            }, calendar.get(Calendar.YEAR),
+            },
+            calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         ).show()
@@ -171,14 +171,12 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
     fun registerUser(home: () -> Unit) {
         if (registerProfileState.value.isScreenValid) {
             auth.createUserWithEmailAndPassword(
-                _registerProfileState.value.email,
-                _registerProfileState.value.password
-            )
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        home()
-                    }
+                _registerProfileState.value.email, _registerProfileState.value.password
+            ).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    home()
                 }
+            }
         }
     }
 }

@@ -25,9 +25,7 @@ fun RegisterLoginInformationContent(
     val registerState by viewModel.registerProfileState.collectAsState()
 
     Column(
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier
-            .padding(
+        verticalArrangement = Arrangement.Center, modifier = Modifier.padding(
                 all = 16.dp
             )
     ) {
@@ -57,13 +55,11 @@ fun RegisterLoginInformationContent(
                 color = Color.Red
             )
         }
-        CustomInputPasswordComponent(
-            title = "Confirm Password",
+        CustomInputPasswordComponent(title = "Confirm Password",
             inputPassword = registerState.passwordConfirm,
             onValueChange = { viewModel.updatePasswordConfirmation(it) },
             imeAction = ImeAction.Done,
-            keyboardActions = { viewModel.updateScreenStep(registerState.screenStep + 1) }
-        )
+            keyboardActions = { viewModel.updateScreenStep(registerState.screenStep + 1) })
         if (registerState.isPasswordDifferent) {
             Text(
                 text = stringResource(R.string.different_password),

@@ -16,8 +16,7 @@ import com.example.k_fit.ui.theme.*
 
 @Composable
 fun CustomSegmentedButtonComponent(
-    defaultSelectedItemIndex: Int = 0,
-    onOptionSelected: (Gender) -> Unit
+    defaultSelectedItemIndex: Int = 0, onOptionSelected: (Gender) -> Unit
 ) {
     val selectedIndex = remember { mutableStateOf(defaultSelectedItemIndex) }
     val options: List<Gender> = listOf(Gender.Female, Gender.Male, Gender.Other)
@@ -26,8 +25,7 @@ fun CustomSegmentedButtonComponent(
             OutlinedButton(
                 modifier = Modifier
                     .height(48.dp)
-                    .offset(y = 20.dp),
-                shape = when (index) {
+                    .offset(y = 20.dp), shape = when (index) {
                     0 -> RoundedCornerShape(
                         topStartPercent = 100,
                         topEndPercent = 0,
@@ -46,33 +44,26 @@ fun CustomSegmentedButtonComponent(
                         bottomStartPercent = 0,
                         bottomEndPercent = 0
                     )
-                },
-                border = BorderStroke(1.dp, HintTextColor),
-                onClick = {
+                }, border = BorderStroke(1.dp, HintTextColor), onClick = {
                     selectedIndex.value = index
                     onOptionSelected(option)
-                },
-                colors = if (selectedIndex.value == index) {
+                }, colors = if (selectedIndex.value == index) {
                     ButtonDefaults.buttonColors(
                         backgroundColor = LightPurple
                     )
                 } else {
                     ButtonDefaults.buttonColors(backgroundColor = Color.White)
                 }
-            )
-            {
+            ) {
                 Text(text = option.toString())
             }
         }
     }
 }
 
-
 @Preview
 @Composable
 fun PreviewCustomSegmentedButtonComponent() {
     val options: List<Gender> = listOf(Gender.Female, Gender.Male, Gender.Other)
-    CustomSegmentedButtonComponent(
-        onOptionSelected = {}
-    )
+    CustomSegmentedButtonComponent(onOptionSelected = {})
 }

@@ -15,9 +15,7 @@ import com.example.k_fit.ui.theme.RedirectionButtonColor
 
 @Composable
 fun CustomRedirectionButton(
-    onClick: () -> Unit,
-    imageVector: ImageVector,
-    description: String
+    onClick: () -> Unit, imageVector: ImageVector, description: String
 ) {
     IconButton(
         modifier = Modifier
@@ -31,6 +29,6 @@ fun CustomRedirectionButton(
 
 @Preview
 @Composable
-fun PreviewCustomRedirectionButton(){
+fun PreviewCustomRedirectionButton() {
     CustomRedirectionButton({}, Icons.Filled.ArrowBack, "")
 }

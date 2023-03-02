@@ -19,9 +19,7 @@ fun RegisterWeightAndHeightContent(
     val registerState by viewModel.registerProfileState.collectAsState()
 
     Column(
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier
-            .padding(
+        verticalArrangement = Arrangement.Center, modifier = Modifier.padding(
                 all = 16.dp
             )
     ) {

@@ -1,11 +1,12 @@
 package com.example.k_fit.presentation.features.register
 
 import com.example.k_fit.presentation.common.Gender
+
 data class RegisterProfileState(
     var screenStep: Float = 1.0f,
     var email: String = "",
     var password: String = "",
-    var passwordConfirm: String ="",
+    var passwordConfirm: String = "",
     var isEmailValid: Boolean = true,
     var isPasswordValid: Boolean = true,
     var isPasswordDifferent: Boolean = false,

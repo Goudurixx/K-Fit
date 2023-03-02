@@ -31,51 +31,44 @@ fun CustomInputPasswordComponent(
     keyboardActions: (KeyboardActionScope.() -> Unit)? = null,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    ) {
-    var passwordVisible by rememberSaveable {mutableStateOf(false)}
+) {
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
-    OutlinedTextField(
-        label = { Text(text = title) },
+    OutlinedTextField(label = { Text(text = title) },
         value = inputPassword,
         placeholder = { Text("Password") },
         onValueChange = onValueChange,
         singleLine = true,
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Password,
-            imeAction = imeAction
+            keyboardType = KeyboardType.Password, imeAction = imeAction
         ),
         keyboardActions = KeyboardActions(
             onDone = keyboardActions
         ),
         textStyle = TextStyle(
-            fontSize = 20.sp,
-            color = HintTextColor
+            fontSize = 20.sp, color = HintTextColor
         ),
         modifier = modifier.fillMaxWidth(),
         readOnly = false,
         trailingIcon = {
-            val image = if (passwordVisible)
-                Icons.Filled.Visibility
+            val image = if (passwordVisible) Icons.Filled.Visibility
             else Icons.Filled.VisibilityOff
 
             val description = if (passwordVisible) "Hide password" else "Show password"
 
-            IconButton(onClick = {passwordVisible = !passwordVisible}){
-                Icon(imageVector  = image, description)
+            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                Icon(imageVector = image, description)
             }
-        }
-    )
+        })
 }
 
 @Preview("Preview CustomButtomComponent", showBackground = true)
 @Composable
 fun PreviewCustomPasswordTextComponent() {
     val inputText = ""
-    CustomInputPasswordComponent(
-        "Title of the input",
+    CustomInputPasswordComponent("Title of the input",
         inputPassword = inputText,
         imeAction = ImeAction.Go,
-        onValueChange = {}
-    )
+        onValueChange = {})
 }

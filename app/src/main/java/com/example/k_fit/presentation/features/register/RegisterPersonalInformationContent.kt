@@ -24,11 +24,11 @@ fun RegisterPersonalInformation(
 ) {
     val registerState by viewModel.registerProfileState.collectAsState()
     val context = LocalContext.current
+    println(registerState.isScreenValid.toString() + "AAA")
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier
-            .padding(
+        modifier = Modifier.padding(
                 all = 16.dp
             )
     ) {
@@ -47,23 +47,19 @@ fun RegisterPersonalInformation(
             inputText = registerState.lastName,
             onValueChange = { viewModel.updateLastName(it) },
         )
-        OutlinedTextField(
-            enabled = false,
+        OutlinedTextField(enabled = false,
             label = { Text(text = "Birthdate") },
             value = registerState.birthDate,
             placeholder = { Text(text = "Birthdate") },
             onValueChange = {},
             textStyle = TextStyle(
-                fontSize = 20.sp,
-                color = HintTextColor
+                fontSize = 20.sp, color = HintTextColor
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
+                .clickable(interactionSource = remember { MutableInteractionSource() },
                     indication = null,
-                    onClick = { viewModel.showDatePickerDialog(context) }
-                ),
+                    onClick = { viewModel.showDatePickerDialog(context) }),
             readOnly = false,
             singleLine = true,
             trailingIcon = {
@@ -72,10 +68,7 @@ fun RegisterPersonalInformation(
                 ) {
                     Icon(imageVector = Icons.Filled.Today, "Clean field")
                 }
-            }
-        )
-        CustomSegmentedButtonComponent(
-            onOptionSelected = { viewModel.updateGender(it) }
-        )
+            })
+        CustomSegmentedButtonComponent(onOptionSelected = { viewModel.updateGender(it) })
     }
 }
