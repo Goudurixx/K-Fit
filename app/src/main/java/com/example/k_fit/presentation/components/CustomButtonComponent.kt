@@ -32,4 +32,3 @@ fun CustomButtonComponent(
 fun PreviewCustomButtonComponent() {
     CustomButtonComponent("Test", {})
 }
-

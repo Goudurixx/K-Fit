@@ -57,5 +57,3 @@ fun PreviewCustomInputTextComponent() {
         inputText = inputText,
     )
 }
-
-
