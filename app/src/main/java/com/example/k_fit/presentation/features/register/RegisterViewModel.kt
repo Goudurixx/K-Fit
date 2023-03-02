@@ -120,7 +120,6 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    //DatePicker
     fun showDatePickerDialog(context: Context) {
         val calendar = Calendar.getInstance()
         val mDatePickerDialog = DatePickerDialog(
@@ -167,7 +166,6 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    // Register user
     fun registerUser(home: () -> Unit) {
         if (registerProfileState.value.isScreenValid) {
             auth.createUserWithEmailAndPassword(

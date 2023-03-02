@@ -24,7 +24,6 @@ fun CustomInputTextComponent(
     trailingIcon: @Composable() (() -> Unit)? = null,
     keyboardType: KeyboardType = KeyboardType.Text
 ) {
-
     Column {
         OutlinedTextField(
             enabled = enabled,

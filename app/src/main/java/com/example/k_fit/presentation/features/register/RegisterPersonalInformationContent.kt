@@ -24,13 +24,12 @@ fun RegisterPersonalInformation(
 ) {
     val registerState by viewModel.registerProfileState.collectAsState()
     val context = LocalContext.current
-    println(registerState.isScreenValid.toString() + "AAA")
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.padding(
-                all = 16.dp
-            )
+            all = 16.dp
+        )
     ) {
         CustomInputTextComponent(
             title = "Nickname",
@@ -64,7 +63,7 @@ fun RegisterPersonalInformation(
             singleLine = true,
             trailingIcon = {
                 IconButton(
-                    onClick = { println(registerState) },
+                    onClick = { },
                 ) {
                     Icon(imageVector = Icons.Filled.Today, "Clean field")
                 }
