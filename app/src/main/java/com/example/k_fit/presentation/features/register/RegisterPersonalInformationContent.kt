@@ -1,7 +1,5 @@
 package com.example.k_fit.presentation.features.register
 
-import android.content.Context
-import android.widget.ToggleButton
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -13,12 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.k_fit.presentation.components.CustomInputTextComponent
 
-import com.example.k_fit.presentation.components.CustomDatePickerComponent
 import com.example.k_fit.presentation.components.CustomSegmentedButtonComponent
 import com.example.k_fit.ui.theme.HintTextColor
 
@@ -26,7 +22,7 @@ import com.example.k_fit.ui.theme.HintTextColor
 fun RegisterPersonalInformation(
     viewModel: RegisterViewModel
 ) {
-    val registerState by viewModel.registerState.collectAsState()
+    val registerState by viewModel.registerProfileState.collectAsState()
     val context = LocalContext.current
 
     Column(
@@ -39,19 +35,16 @@ fun RegisterPersonalInformation(
     ) {
         CustomInputTextComponent(
             title = "Nickname",
-            hint = "Nickname",
             inputText = registerState.nickName,
             onValueChange = { viewModel.updateNickName(it) },
         )
         CustomInputTextComponent(
             title = "Firstname",
-            hint = "Firstname",
             inputText = registerState.firstName,
             onValueChange = { viewModel.updateFirstName(it) },
         )
         CustomInputTextComponent(
             title = "Lastname",
-            hint = "Lastname",
             inputText = registerState.lastName,
             onValueChange = { viewModel.updateLastName(it) },
         )

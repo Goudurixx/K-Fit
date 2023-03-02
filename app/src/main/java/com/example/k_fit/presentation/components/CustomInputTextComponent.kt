@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -14,6 +15,8 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -25,30 +28,33 @@ import com.example.k_fit.ui.theme.*
 @Composable
 fun CustomInputTextComponent(
     title: String,
-    hint: String,
     onValueChange: (String) -> Unit,
     inputText: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    trailingIcon: @Composable() (() -> Unit)? = null,
+    keyboardType: KeyboardType = KeyboardType.Text
 ) {
+
     Column {
         OutlinedTextField(
             enabled = enabled,
             label = { Text(text = title) },
             value = inputText,
-            placeholder = { Text(hint) },
+            placeholder = { Text(title) },
             onValueChange = onValueChange,
             textStyle = TextStyle(
                 fontSize = 20.sp,
-                color = HintTextColor
+                color = Color.Black
             ),
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email,
+                keyboardType = keyboardType,
                 imeAction = ImeAction.Next
             ),
             modifier = modifier.fillMaxWidth(),
             readOnly = false,
             singleLine = true,
+            trailingIcon = trailingIcon
         )
     }
 }
@@ -60,7 +66,6 @@ fun PreviewCustomInputTextComponent() {
     val onValueChange: (String) -> Unit = { s: String -> println(s) }
     CustomInputTextComponent(
         "Title of the input",
-        hint = "Hint for the input",
         onValueChange = onValueChange,
         inputText = inputText,
     )

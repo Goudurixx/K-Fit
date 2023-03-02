@@ -1,9 +1,7 @@
 package com.example.k_fit.presentation.features.register
 
 import com.example.k_fit.presentation.common.Gender
-import java.util.Date
-
-data class RegisterState(
+data class RegisterProfileState(
     var screenStep: Float = 1.0f,
     var email: String = "",
     var password: String = "",
@@ -15,5 +13,7 @@ data class RegisterState(
     var firstName: String = "",
     var lastName: String = "",
     var birthDate: String = "",
-    var gender: Gender? = null
+    var gender: Gender? = null,
+    var weight: Int = 0,
+    var height: Int = 0,
 )

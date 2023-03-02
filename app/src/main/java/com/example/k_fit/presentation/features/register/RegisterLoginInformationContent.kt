@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.k_fit.R
 import com.example.k_fit.presentation.components.CustomInputPasswordComponent
@@ -21,7 +22,7 @@ import com.example.k_fit.presentation.components.CustomInputTextComponent
 fun RegisterLoginInformationContent(
     viewModel: RegisterViewModel
 ) {
-    val registerState by viewModel.registerState.collectAsState()
+    val registerState by viewModel.registerProfileState.collectAsState()
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -32,9 +33,9 @@ fun RegisterLoginInformationContent(
     ) {
         CustomInputTextComponent(
             title = "E-mail",
-            hint = "email@email.email",
             inputText = registerState.email,
             onValueChange = { viewModel.updateEmail(it) },
+            keyboardType = KeyboardType.Email
         )
         if (!registerState.isEmailValid) {
             Text(

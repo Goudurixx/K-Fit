@@ -21,8 +21,7 @@ fun CustomSegmentedButtonComponent(
 ) {
     val selectedIndex = remember { mutableStateOf(defaultSelectedItemIndex) }
     val options: List<Gender> = listOf(Gender.Female, Gender.Male, Gender.Other)
-    Row(
-    ) {
+    Row {
         options.forEachIndexed { index, option ->
             OutlinedButton(
                 modifier = Modifier
