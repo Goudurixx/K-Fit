@@ -14,7 +14,6 @@ fun LoginOrRegisterScreen(
     onNavigateToRegister: () -> Unit,
 ) {
 //    val loginOrRegisterViewModel = hiltViewModel<LoginOrRegisterViewModel>()
-
     Column(
         verticalArrangement = Arrangement.Bottom,
         modifier = Modifier.fillMaxHeight()

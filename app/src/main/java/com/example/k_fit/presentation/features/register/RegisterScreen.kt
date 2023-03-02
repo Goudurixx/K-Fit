@@ -1,93 +1,74 @@
 package com.example.k_fit.presentation.features.register
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.k_fit.R
-import com.example.k_fit.presentation.components.CustomButtonComponent
-import com.example.k_fit.presentation.components.CustomInputPasswordComponent
-import com.example.k_fit.presentation.components.CustomInputTextComponent
+import com.example.k_fit.presentation.components.CustomRedirectionButton
 
 @Composable
 fun RegisterScreen(
-    onNavigateToFriends: () -> Unit,
-    viewModel: RegisterViewModel = hiltViewModel()
+    onNavigateToFriends: () -> Unit, viewModel: RegisterViewModel = hiltViewModel()
 ) {
+    val registerState by viewModel.registerProfileState.collectAsState()
+    val focusManager = LocalFocusManager.current
 
-    val registerState by viewModel.registerState.collectAsState()
-    Column(
-        verticalArrangement = Arrangement.Center,
+    Column(verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxHeight()
-            .padding(
-                all = 16.dp
-            )
-    ) {
-        CustomInputTextComponent(
-            title = "E-mail",
-            hint = "email@email.email",
-            inputText = registerState.email,
-            onValueChange = { viewModel.updateEmail(it) },
-        )
-        if (!registerState.isEmailValid) {
-            Text(
-                text = stringResource(R.string.wrong_email),
-                Modifier.absoluteOffset(x = 16.dp),
-                color = Color.Red
-            )
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = {
+                    focusManager.clearFocus()
+                })
+            }) {
+        when (registerState.screenStep) {
+            1f -> RegisterLoginInformationContent(viewModel)
+            2f -> RegisterPersonalInformation(viewModel)
+            3f -> RegisterWeightAndHeightContent(viewModel)
         }
-        CustomInputPasswordComponent(
-            title = "Password",
-            inputPassword = registerState.password,
-            onValueChange = { viewModel.updatePassword(it) },
-            imeAction = ImeAction.Next
+        if (!registerState.isScreenValid) Text(
+            text = stringResource(R.string.empty_form),
+            color = Color.Red,
+            modifier = Modifier.padding(top = 8.dp)
         )
-        if (!registerState.isPasswordValid) {
-            Text(
-                text = stringResource(R.string.wrong_password),
-                Modifier.absoluteOffset(x = 16.dp),
-                color = Color.Red
-            )
-        }
-        CustomInputPasswordComponent(
-            title = "Confirm Password",
-            inputPassword = registerState.passwordConfirm,
-            onValueChange = { viewModel.updatePasswordConfirmation(it) },
-            imeAction = ImeAction.Done,
-            keyboardActions = { viewModel.registerUser(home = onNavigateToFriends) }
-        )
-        if (registerState.isPasswordDifferent) {
-            Text(
-                text = stringResource(R.string.different_password),
-                Modifier.absoluteOffset(x = 16.dp),
-                color = Color.Red
-            )
-        }
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    all = 16.dp
-                )
+            Modifier.padding(bottom = 64.dp, top = 64.dp),
+            horizontalArrangement = Arrangement.Center
         ) {
-            CustomButtonComponent(
-                title = "Register",
-                onClick = { viewModel.registerUser(home = onNavigateToFriends) },
-            )
+            if (registerState.screenStep == 2f || registerState.screenStep == 3f) {
+                CustomRedirectionButton({
+                    viewModel.updateScreenStep(registerState.screenStep - 1)
+                }, Icons.Filled.ArrowBack, "Go Back")
+                Spacer(modifier = Modifier.width(20.dp))
+                if (registerState.screenStep == 3f) CustomRedirectionButton({
+                    viewModel.registerUser(onNavigateToFriends)
+                }, Icons.Filled.Check, "Validate")
+            }
+            if (registerState.screenStep != 3f) CustomRedirectionButton({
+                viewModel.isFormValid()
+                if (viewModel.registerProfileState.value.isScreenValid) {
+                    viewModel.updateScreenStep(registerState.screenStep + 1)
+                }
+            }, Icons.Filled.ArrowForward, "Go Forward")
         }
+        LinearProgressIndicator(
+            progress = ((registerState.screenStep * 0.333) % 1).toFloat(),
+            modifier = Modifier.padding(bottom = 64.dp)
+        )
     }
-}
-
-
-@Preview("Register screen preview", showSystemUi = true)
-@Composable
-fun PreviewRegisterScreen() {
-    RegisterScreen({})
 }
