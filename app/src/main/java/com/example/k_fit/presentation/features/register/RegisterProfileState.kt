@@ -9,6 +9,7 @@ data class RegisterProfileState(
     var isEmailValid: Boolean = true,
     var isPasswordValid: Boolean = true,
     var isPasswordDifferent: Boolean = false,
+    var isScreenValid: Boolean = true,
     var nickName: String = "",
     var firstName: String = "",
     var lastName: String = "",

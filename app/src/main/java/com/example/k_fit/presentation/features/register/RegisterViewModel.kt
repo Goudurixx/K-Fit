@@ -97,16 +97,28 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    private fun isFormValid(): Boolean {
-        val email: String = _registerProfileState.value.email
-        val password: String = _registerProfileState.value.password
-        val passwordConfirm: String = _registerProfileState.value.passwordConfirm
+    fun isFormValid() {
+        var isValid = false
+        if (registerProfileState.value.screenStep == 1f) {
+            val email: String = _registerProfileState.value.email
+            val password: String = _registerProfileState.value.password
+            val passwordConfirm: String = _registerProfileState.value.passwordConfirm
 
-        updateIsEmailValid(email)
-        updateIsPasswordValid(password)
-        updateIsPasswordDifferent(password, passwordConfirm)
+            updateIsEmailValid(email)
+            updateIsPasswordValid(password)
+            updateIsPasswordDifferent(password, passwordConfirm)
 
-        return _registerProfileState.value.isEmailValid && _registerProfileState.value.isPasswordValid && !_registerProfileState.value.isPasswordDifferent
+            isValid =
+                _registerProfileState.value.isEmailValid && _registerProfileState.value.isPasswordValid && !_registerProfileState.value.isPasswordDifferent
+        }
+        if (registerProfileState.value.screenStep == 2f) {
+            isValid =
+                registerProfileState.value.nickName.isNotEmpty() && registerProfileState.value.firstName.isNotEmpty()
+                        && registerProfileState.value.lastName.isNotEmpty() && registerProfileState.value.birthDate.isNotEmpty()
+        }
+        _registerProfileState.update { currentState ->
+            currentState.copy(isScreenValid = isValid)
+        }
     }
 
     //DatePicker
@@ -142,15 +154,22 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
             currentState.copy(weight = weight.toInt())
         }
     }
+
     fun updateHeight(height: String) {
         _registerProfileState.update { currentState ->
             currentState.copy(height = height.toInt())
         }
     }
 
+    fun updateIsScreenValid(isScreenValid: Boolean) {
+        _registerProfileState.update { currentState ->
+            currentState.copy(isScreenValid = isScreenValid)
+        }
+    }
+
     // Register user
     fun registerUser(home: () -> Unit) {
-        if (isFormValid()) {
+        if (registerProfileState.value.isScreenValid) {
             auth.createUserWithEmailAndPassword(
                 _registerProfileState.value.email,
                 _registerProfileState.value.password

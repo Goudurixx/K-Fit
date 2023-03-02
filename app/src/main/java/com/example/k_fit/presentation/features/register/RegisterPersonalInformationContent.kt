@@ -24,7 +24,6 @@ fun RegisterPersonalInformation(
 ) {
     val registerState by viewModel.registerProfileState.collectAsState()
     val context = LocalContext.current
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
