@@ -41,10 +41,8 @@ import com.example.k_fit.ui.theme.CardStroke
 fun CustomWorkoutCard(
     workoutCardName: String,
     user: User,
-    workout: Workout,
-    onClick: () -> Unit
+    workout: Workout
 ) {
-
     var openCard by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
@@ -71,13 +69,13 @@ fun CustomWorkoutCard(
                 workoutCardName = workoutCardName,
                 user = user,
                 workout = workout,
-            ) {}
+            )
         } else {
             CustomWorkoutCardClosed(
                 workoutCardName = workoutCardName,
                 user = user,
                 workout = workout,
-            ) {}
+            )
         }
 
     }
@@ -87,8 +85,7 @@ fun CustomWorkoutCard(
 fun CustomWorkoutCardClosed(
     workoutCardName: String,
     user: User,
-    workout: Workout,
-    onClick: () -> Unit
+    workout: Workout
 ) {
 
     Row(
@@ -112,14 +109,13 @@ fun CustomWorkoutCardClosed(
 fun CustomWorkoutCardOpened(
     workoutCardName: String,
     user: User,
-    workout: Workout,
-    onClick: () -> Unit
+    workout: Workout
 ) {
     var openDialog by remember { mutableStateOf(false) }
     var favoriteActivity by remember { mutableStateOf(true) }
     var showActivity by remember { mutableStateOf(true) }
 
-    Column() {
+    Column {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -242,7 +238,7 @@ fun WorkoutMuscle(workoutMuscle: String) {
         overflow = TextOverflow.Ellipsis,
     )
 }
-
+/*TODO
 @Composable
 fun WorkoutInstructions(workoutInstructions: String) {
     Text(
@@ -251,14 +247,14 @@ fun WorkoutInstructions(workoutInstructions: String) {
         maxLines = 3,
         overflow = TextOverflow.Ellipsis,
     )
-}
+}*/
 
 
 @Composable
 fun WorkoutMusclesImage(workout: Workout, modifier: Modifier) {
     Image(
         painter = painterResource(id = workout.image),
-        contentDescription = "Image of a body with highligthed ${workout.muscle}",
+        contentDescription = "Image of a body with highlighted ${workout.muscle}",
         contentScale = ContentScale.FillHeight,
         colorFilter = ColorFilter.tint(color = CardBackground, blendMode = BlendMode.Multiply),
         modifier = modifier
@@ -267,86 +263,95 @@ fun WorkoutMusclesImage(workout: Workout, modifier: Modifier) {
 }
 
 class Workout {
-    var name: String = ""
-    var type: String = ""
-    var muscle: String = ""
-    var equipment: String = ""
-    var difficulty: String = ""
-    var instructions: String = ""
+    var name: String
+    var type: String
+    var muscle: String
+    var equipment: String
+    var difficulty: String
+    var instructions: String
     var image: Int = com.example.k_fit.R.drawable.example
+
+    constructor() {
+        name = "Incline Hammer Curls"
+        type = "Strength"
+        muscle = "Biceps"
+        equipment = "dumbbell"
+        difficulty = "beginner"
+        instructions =
+            "Seat yourself on an incline bench with a dumbbell in each hand. You should pressed firmly against he back with your feet together. Allow the dumbbells to hang straight down at your side, holding them with a neutral grip. This will be your starting position. Initiate the movement by flexing at the elbow, attempting to keep the upper arm stationary. Continue to the top of the movement and pause, then slowly return to the start position.\n"
+        image = com.example.k_fit.R.drawable.example
+    }
+    constructor(
+        name: String,
+        type: String,
+        muscle: String,
+        equipment: String,
+        difficulty: String,
+        instructions: String,
+        image: Int
+    ) {
+        this.name = name
+        this.type = type
+        this.muscle = muscle
+        this.equipment = equipment
+        this.difficulty = difficulty
+        this.instructions = instructions
+        this.image = image
+    }
 }
 
 class User {
-    var name: String = ""
-    var profilePicture: ImageVector = Icons.Filled.AccountCircle
+    var name: String
+    var profilePicture: ImageVector
+
+    constructor(){
+        name = "Example User"
+        profilePicture = Icons.Filled.AccountCircle
+    }
+
+    constructor(name:String,profilePicture:ImageVector){
+       this.name = name
+       this.profilePicture = profilePicture
+    }
 }
 
 @Preview("PreviewCustomWorkoutCard Closed", showBackground = true)
 @Composable
 fun PreviewCustomWorkoutCardClosed() {
-    var user: User = User()
-    user.name = "Example Name"
-    var workout: Workout = Workout()
-    workout.name = "Incline Hammer Curls"
-    workout.type = "Strength"
-    workout.muscle = "Biceps"
-    workout.equipment = "dumbbell"
-    workout.difficulty = "beginner"
-    workout.instructions =
-        "Seat yourself on an incline bench with a dumbbell in each hand. You should pressed firmly against he back with your feet together. Allow the dumbbells to hang straight down at your side, holding them with a neutral grip. This will be your starting position. Initiate the movement by flexing at the elbow, attempting to keep the upper arm stationary. Continue to the top of the movement and pause, then slowly return to the start position.\n"
-    workout.image = com.example.k_fit.R.drawable.example
+    val user = User()
+    val workout = Workout()
 
     CustomWorkoutCardClosed(
         workoutCardName = "Today's workout",
         user = user,
-        workout = workout,
-        {})
+        workout = workout
+    )
 }
 
 @Preview("PreviewCustomWorkoutCard Opened", showBackground = true)
 @Composable
 fun PreviewCustomWorkoutCardOpened() {
-    var user: User = User()
-    user.name = "Example Name"
-    var workout: Workout = Workout()
-    workout.name = "Incline Hammer Curls"
-    workout.type = "Strength"
-    workout.muscle = "Biceps"
-    workout.equipment = "dumbbell"
-    workout.difficulty = "beginner"
-    workout.instructions =
-        "Seat yourself on an incline bench with a dumbbell in each hand. You should pressed firmly against he back with your feet together. Allow the dumbbells to hang straight down at your side, holding them with a neutral grip. This will be your starting position. Initiate the movement by flexing at the elbow, attempting to keep the upper arm stationary. Continue to the top of the movement and pause, then slowly return to the start position.\n"
-    workout.image = com.example.k_fit.R.drawable.example
+    val user = User()
+    val workout = Workout()
 
-    var openCard by remember { mutableStateOf(true) }
     CustomWorkoutCardOpened(
         workoutCardName = "Today's workout",
         user = user,
-        workout = workout,
-        {})
+        workout = workout
+    )
 }
 
 @Preview("PreviewCustomWorkoutCard", showBackground = true)
 @Composable
 fun PreviewCustomActivityCard() {
-    var user: User = User()
-    user.name = "Example Name"
-    var workout: Workout = Workout()
-    workout.name = "Incline Hammer Curls"
-    workout.type = "Strength"
-    workout.muscle = "Biceps"
-    workout.equipment = "dumbbell"
-    workout.difficulty = "beginner"
-    workout.instructions =
-        "Seat yourself on an incline bench with a dumbbell in each hand. You should pressed firmly against he back with your feet together. Allow the dumbbells to hang straight down at your side, holding them with a neutral grip. This will be your starting position. Initiate the movement by flexing at the elbow, attempting to keep the upper arm stationary. Continue to the top of the movement and pause, then slowly return to the start position.\n"
-    workout.image = com.example.k_fit.R.drawable.example
+    val user= User()
+    val workout = Workout()
 
     CustomWorkoutCard(
         workoutCardName = "Today's workout",
         user = user,
-        workout = workout,
-    ) {
-    }
+        workout = workout
+    )
 }
 
 
@@ -419,7 +424,7 @@ fun ExpandableText(
 
 @Preview("text expandable preview", showBackground = true)
 @Composable
-fun previewExtandedText() {
+fun PreviewExtendedText() {
     ExpandableText(
         text = "Seat yourself on an incline bench with a dumbbell in each hand\n You should pressed firmly against he back with your feet together. \n" +
                 " Allow the dumbbells to hang straight down at your side, holding them with a neutral grip. This will be your starting position. Initiate the movement by flexing at the elbow,\n" +
