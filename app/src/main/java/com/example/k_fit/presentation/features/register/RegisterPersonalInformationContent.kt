@@ -1,23 +1,18 @@
 package com.example.k_fit.presentation.features.register
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Today
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.k_fit.presentation.components.CustomDatePickerComponent
 import com.example.k_fit.presentation.components.CustomInputTextComponent
-
 import com.example.k_fit.presentation.components.CustomSegmentedButtonComponent
-import com.example.k_fit.ui.theme.HintTextColor
 
 @Composable
 fun RegisterPersonalInformation(
