@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.k_fit.presentation.components.CustomDatePickerComponent
 import com.example.k_fit.presentation.components.CustomInputTextComponent
 
 import com.example.k_fit.presentation.components.CustomSegmentedButtonComponent
@@ -46,28 +47,9 @@ fun RegisterPersonalInformation(
             inputText = registerState.lastName,
             onValueChange = { viewModel.updateLastName(it) },
         )
-        OutlinedTextField(enabled = false,
-            label = { Text(text = "Birthdate") },
-            value = registerState.birthDate,
-            placeholder = { Text(text = "Birthdate") },
-            onValueChange = {},
-            textStyle = TextStyle(
-                fontSize = 20.sp, color = HintTextColor
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    onClick = { viewModel.showDatePickerDialog(context) }),
-            readOnly = false,
-            singleLine = true,
-            trailingIcon = {
-                IconButton(
-                    onClick = { },
-                ) {
-                    Icon(imageVector = Icons.Filled.Today, "Clean field")
-                }
-            })
+        CustomDatePickerComponent(
+            pickedDate = registerState.birthDate,
+            onClick = { viewModel.showDatePickerDialog(context) })
         CustomSegmentedButtonComponent(onOptionSelected = { viewModel.updateGender(it) })
     }
 }
