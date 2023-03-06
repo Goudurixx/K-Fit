@@ -123,7 +123,7 @@ fun CustomWorkoutCardClosed(
                 .padding(end = 16.dp)
         ) {
             WorkoutTitle(workoutCardName = workoutCardName)
-            WorkoutMuscle(workoutMuscle = workout.type)
+            WorkoutType(workoutType = workout.type)
         }
         WorkoutMusclesImage(workout = workout, Modifier.weight(1f))
     }
@@ -151,7 +151,7 @@ fun CustomWorkoutCardOpened(
                     .padding(end = 16.dp)
             ) {
                 WorkoutTitle(workoutCardName = workoutCardName)
-                WorkoutMuscle(workoutMuscle = workout.type)
+                WorkoutType(workoutType = workout.type)
             }
             Box(contentAlignment = Alignment.CenterEnd, modifier = Modifier.fillMaxWidth()) {
                 IconButton(
@@ -255,6 +255,16 @@ fun WorkoutTitle(workoutCardName: String) {
 }
 
 @Composable
+fun WorkoutType(workoutType: String) {
+    Text(
+        text = workoutType,
+        style = MaterialTheme.typography.body2,
+        maxLines = 3,
+        overflow = TextOverflow.Ellipsis,
+    )
+}
+
+@Composable
 fun WorkoutMuscle(workoutMuscle: String) {
     Text(
         text = workoutMuscle,
@@ -263,7 +273,6 @@ fun WorkoutMuscle(workoutMuscle: String) {
         overflow = TextOverflow.Ellipsis,
     )
 }
-
 
 @Composable
 fun WorkoutMusclesImage(workout: WorkoutUIModel, modifier: Modifier) {
@@ -277,11 +286,9 @@ fun WorkoutMusclesImage(workout: WorkoutUIModel, modifier: Modifier) {
     )
 }
 
-
 @Preview("PreviewCustomWorkoutCard Closed", showBackground = true)
 @Composable
 fun PreviewCustomWorkoutCardClosed() {
-
     CustomWorkoutCardClosed(
         workoutCardName = "Today's workout",
         user = user,
@@ -292,7 +299,6 @@ fun PreviewCustomWorkoutCardClosed() {
 @Preview("PreviewCustomWorkoutCard Opened", showBackground = true)
 @Composable
 fun PreviewCustomWorkoutCardOpened() {
-
     CustomWorkoutCardOpened(
         workoutCardName = "Today's workout",
         user = user,
@@ -303,7 +309,6 @@ fun PreviewCustomWorkoutCardOpened() {
 @Preview("PreviewCustomWorkoutCard", showBackground = true)
 @Composable
 fun PreviewCustomActivityCard() {
-
     CustomWorkoutCard(
         workoutCardName = "Today's workout",
         user = user,
