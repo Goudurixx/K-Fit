@@ -1,9 +1,12 @@
 package com.example.k_fit.presentation.components
 
 
-import androidx.compose.animation.*
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -24,7 +27,6 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -34,24 +36,46 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.example.k_fit.presentation.common.Gender
+import com.example.k_fit.presentation.models.UserProfileUIModel
+import com.example.k_fit.presentation.models.WorkoutUIModel
 import com.example.k_fit.ui.theme.CardBackground
 import com.example.k_fit.ui.theme.CardStroke
+
+val workout = WorkoutUIModel(
+    name = "Incline Hammer Curls",
+    type = "Strength",
+    muscle = "Biceps",
+    equipment = "dumbbell",
+    difficulty = "beginner",
+    instructions =
+    "Seat yourself on an incline bench with a dumbbell in each hand. You should pressed firmly against he back with your feet together. Allow the dumbbells to hang straight down at your side, holding them with a neutral grip. This will be your starting position. Initiate the movement by flexing at the elbow, attempting to keep the upper arm stationary. Continue to the top of the movement and pause, then slowly return to the start position.\n",
+    image = com.example.k_fit.R.drawable.example
+)
+
+val user = UserProfileUIModel(
+    email = "",
+    nickName = "Example User",
+    lastName = "",
+    birthDate = "",
+    gender = Gender.Other,
+    weight = 0,
+    height = 0,
+    profilePicture = Icons.Filled.AccountCircle
+)
 
 @Composable
 fun CustomWorkoutCard(
     workoutCardName: String,
-    user: User,
-    workout: Workout
+    user: UserProfileUIModel,
+    workout: WorkoutUIModel
 ) {
     var openCard by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .animateContentSize(
-                animationSpec = tween(
-//                   delayMillis = 50,
-//                    easing = EaseInBounce
-                )
+                animationSpec = tween()
             )
             .padding(15.dp)
             .clickable(
@@ -84,8 +108,8 @@ fun CustomWorkoutCard(
 @Composable
 fun CustomWorkoutCardClosed(
     workoutCardName: String,
-    user: User,
-    workout: Workout
+    user: UserProfileUIModel,
+    workout: WorkoutUIModel
 ) {
 
     Row(
@@ -108,8 +132,8 @@ fun CustomWorkoutCardClosed(
 @Composable
 fun CustomWorkoutCardOpened(
     workoutCardName: String,
-    user: User,
-    workout: Workout
+    user: UserProfileUIModel,
+    workout: WorkoutUIModel
 ) {
     var openDialog by remember { mutableStateOf(false) }
     var favoriteActivity by remember { mutableStateOf(true) }
@@ -190,7 +214,7 @@ fun CustomWorkoutCardOpened(
 
 //TODO Move outside
 @Composable
-fun UserImage(user: User) {
+fun UserImage(user: UserProfileUIModel) {
     val rainbowColorsBrush = remember {
         Brush.sweepGradient(
             listOf(
@@ -207,7 +231,7 @@ fun UserImage(user: User) {
     }
     Image(
         imageVector = user.profilePicture,
-        contentDescription = "Profile picture of ${user.name}",
+        contentDescription = "Profile picture of ${user.nickName}",
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .padding(16.dp)
@@ -239,20 +263,10 @@ fun WorkoutMuscle(workoutMuscle: String) {
         overflow = TextOverflow.Ellipsis,
     )
 }
-/*TODO
-@Composable
-fun WorkoutInstructions(workoutInstructions: String) {
-    Text(
-        text = workoutInstructions,
-        style = MaterialTheme.typography.body2,
-        maxLines = 3,
-        overflow = TextOverflow.Ellipsis,
-    )
-}*/
 
 
 @Composable
-fun WorkoutMusclesImage(workout: Workout, modifier: Modifier) {
+fun WorkoutMusclesImage(workout: WorkoutUIModel, modifier: Modifier) {
     Image(
         painter = painterResource(id = workout.image),
         contentDescription = "Image of a body with highlighted ${workout.muscle}",
@@ -263,66 +277,10 @@ fun WorkoutMusclesImage(workout: Workout, modifier: Modifier) {
     )
 }
 
-//TODO Move outside
-class Workout {
-    var name: String
-    var type: String
-    var muscle: String
-    var equipment: String
-    var difficulty: String
-    var instructions: String
-    var image: Int = com.example.k_fit.R.drawable.example
-
-    constructor() {
-        name = "Incline Hammer Curls"
-        type = "Strength"
-        muscle = "Biceps"
-        equipment = "dumbbell"
-        difficulty = "beginner"
-        instructions =
-            "Seat yourself on an incline bench with a dumbbell in each hand. You should pressed firmly against he back with your feet together. Allow the dumbbells to hang straight down at your side, holding them with a neutral grip. This will be your starting position. Initiate the movement by flexing at the elbow, attempting to keep the upper arm stationary. Continue to the top of the movement and pause, then slowly return to the start position.\n"
-        image = com.example.k_fit.R.drawable.example
-    }
-    constructor(
-        name: String,
-        type: String,
-        muscle: String,
-        equipment: String,
-        difficulty: String,
-        instructions: String,
-        image: Int
-    ) {
-        this.name = name
-        this.type = type
-        this.muscle = muscle
-        this.equipment = equipment
-        this.difficulty = difficulty
-        this.instructions = instructions
-        this.image = image
-    }
-}
-
-//TODO Move outside
-class User {
-    var name: String
-    var profilePicture: ImageVector
-
-    constructor(){
-        name = "Example User"
-        profilePicture = Icons.Filled.AccountCircle
-    }
-
-    constructor(name:String,profilePicture:ImageVector){
-       this.name = name
-       this.profilePicture = profilePicture
-    }
-}
 
 @Preview("PreviewCustomWorkoutCard Closed", showBackground = true)
 @Composable
 fun PreviewCustomWorkoutCardClosed() {
-    val user = User()
-    val workout = Workout()
 
     CustomWorkoutCardClosed(
         workoutCardName = "Today's workout",
@@ -334,8 +292,6 @@ fun PreviewCustomWorkoutCardClosed() {
 @Preview("PreviewCustomWorkoutCard Opened", showBackground = true)
 @Composable
 fun PreviewCustomWorkoutCardOpened() {
-    val user = User()
-    val workout = Workout()
 
     CustomWorkoutCardOpened(
         workoutCardName = "Today's workout",
@@ -347,8 +303,6 @@ fun PreviewCustomWorkoutCardOpened() {
 @Preview("PreviewCustomWorkoutCard", showBackground = true)
 @Composable
 fun PreviewCustomActivityCard() {
-    val user= User()
-    val workout = Workout()
 
     CustomWorkoutCard(
         workoutCardName = "Today's workout",
