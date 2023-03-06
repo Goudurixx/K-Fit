@@ -2,6 +2,6 @@
     <string name="app_name">K-Fit</string>
     <string name="different_password">Please make sure your password match.</string>
     <string name="wrong_email">The email address you entered is not valid.</string>
-    <string name="wrong_password">Your password must be at least 32 characters long and must contain A-Z. Lowercase letters: a-z. Numbers: 0-9. Symbols: ~`!</string>
+    <string name="wrong_password">Your password must be at least 6 characters long and must contain A-Z. Lowercase letters: a-z. Numbers: 0-9. Symbols: ~`!</string>
     <string name="empty_form">All field must be filled</string>
 </resources>
