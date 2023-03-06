@@ -26,15 +26,12 @@ fun LoginScreen(onNavigateToFriends: () -> Unit) {
             .fillMaxHeight()
             .padding(
                 all = 16.dp
-
             )
     ) {
         CustomButtonComponent(
             title = "login", onNavigateToFriends
         )
-
     }
-
 }
 
 @Preview("Login screen preview", showSystemUi = true)

@@ -7,40 +7,41 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.example.k_fit.ui.theme.*
 
 @Composable
 fun CustomInputTextComponent(
     title: String,
-    hint: String,
     onValueChange: (String) -> Unit,
     inputText: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    trailingIcon: @Composable() (() -> Unit)? = null,
+    keyboardType: KeyboardType = KeyboardType.Text
 ) {
     Column {
         OutlinedTextField(
+            enabled = enabled,
             label = { Text(text = title) },
             value = inputText,
-            placeholder = { Text(hint) },
+            placeholder = { Text(title) },
             onValueChange = onValueChange,
             textStyle = TextStyle(
-                fontSize = 20.sp,
-                color = HintTextColor
+                fontSize = 20.sp, color = Color.Black
             ),
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Next
+                keyboardType = keyboardType, imeAction = ImeAction.Next
             ),
             modifier = modifier.fillMaxWidth(),
             readOnly = false,
-            singleLine = true
+            singleLine = true,
+            trailingIcon = trailingIcon
         )
-
     }
 }
 
@@ -51,7 +52,6 @@ fun PreviewCustomInputTextComponent() {
     val onValueChange: (String) -> Unit = { s: String -> println(s) }
     CustomInputTextComponent(
         "Title of the input",
-        hint = "Hint for the input",
         onValueChange = onValueChange,
         inputText = inputText,
     )
