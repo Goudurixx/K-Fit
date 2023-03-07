@@ -26,8 +26,8 @@ fun RegisterLoginInformationContent(
 
     Column(
         verticalArrangement = Arrangement.Center, modifier = Modifier.padding(
-                all = 16.dp
-            )
+            all = 16.dp
+        )
     ) {
         CustomInputTextComponent(
             title = "E-mail",
@@ -59,7 +59,12 @@ fun RegisterLoginInformationContent(
             inputPassword = registerState.passwordConfirm,
             onValueChange = { viewModel.updatePasswordConfirmation(it) },
             imeAction = ImeAction.Done,
-            keyboardActions = { viewModel.updateScreenStep(registerState.screenStep + 1) })
+            keyboardActions = {
+                viewModel.isFormValid()
+                if (viewModel.registerProfileState.value.isScreenValid) {
+                    viewModel.updateScreenStep(registerState.screenStep + 1)
+                }
+            })
         if (registerState.isPasswordDifferent) {
             Text(
                 text = stringResource(R.string.different_password),
