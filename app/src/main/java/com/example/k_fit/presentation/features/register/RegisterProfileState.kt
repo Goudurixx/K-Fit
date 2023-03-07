@@ -16,6 +16,6 @@ data class RegisterProfileState(
     var lastName: String = "",
     var birthDate: String = "",
     var gender: Gender? = null,
-    var weight: Int = 0,
-    var height: Int = 0,
+    var weight: Float = 0f,
+    var height: Float = 0f,
 )

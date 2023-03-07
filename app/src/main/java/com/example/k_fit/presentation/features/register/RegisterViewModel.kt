@@ -150,13 +150,13 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
 
     fun updateWeight(weight: String) {
         _registerProfileState.update { currentState ->
-            currentState.copy(weight = weight.toInt())
+            currentState.copy(weight = getValidatedNumber(weight).toFloat())
         }
     }
 
     fun updateHeight(height: String) {
         _registerProfileState.update { currentState ->
-            currentState.copy(height = height.toInt())
+            currentState.copy(height = getValidatedNumber(height).toFloat())
         }
     }
 
@@ -176,5 +176,19 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
                 }
             }
         }
+    }
+}
+
+fun getValidatedNumber(text: String): String {
+    val filteredChars = text.filterIndexed {
+            index,
+            c -> c in "0123456789" || (c == '.' && text.indexOf('.') == index)
+    }
+    return if (filteredChars.contains('.')) {
+        val beforeDecimal = filteredChars.substringBefore('.')
+        val afterDecimal = filteredChars.substringAfter('.')
+        beforeDecimal.take(3) + "." + afterDecimal.take(2)
+    } else {
+        filteredChars.take(3)
     }
 }
