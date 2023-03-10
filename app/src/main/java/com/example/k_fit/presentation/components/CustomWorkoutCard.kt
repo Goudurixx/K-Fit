@@ -189,6 +189,7 @@ fun PreviewCustomActivityCard() {
     val user = UserProfileUIModel(
         email = "",
         nickName = "Example User",
+        firstName = "",
         lastName = "",
         birthDate = "",
         gender = Gender.Other,

@@ -10,7 +10,7 @@ fun CardSubTitle(cardSubTitle: String) {
     Text(
         text = cardSubTitle,
         style = MaterialTheme.typography.body2,
-        maxLines = 3,
+        maxLines = 2,
         overflow = TextOverflow.Ellipsis,
     )
 }

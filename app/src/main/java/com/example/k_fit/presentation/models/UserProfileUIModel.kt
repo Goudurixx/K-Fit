@@ -8,6 +8,7 @@ import com.example.k_fit.presentation.common.Gender
 data class UserProfileUIModel(
     var email: String,
     var nickName: String,
+    var firstName: String,
     var lastName: String,
     var birthDate: String,
     var gender: Gender,
