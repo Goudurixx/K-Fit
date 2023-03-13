@@ -9,7 +9,6 @@ import com.example.k_fit.presentation.common.Gender
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -115,9 +114,11 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
             isValid =
                 registerProfileState.value.nickName.isNotEmpty() && registerProfileState.value.firstName.isNotEmpty() && registerProfileState.value.lastName.isNotEmpty() && registerProfileState.value.birthDate.isNotEmpty()
         }
-        _registerProfileState.update { currentState ->
-            currentState.copy(isScreenValid = isValid)
+        if (registerProfileState.value.screenStep == 3f) {
+            isValid =
+                registerProfileState.value.height > 1f && registerProfileState.value.weight > 1f
         }
+        updateIsScreenValid(isValid)
     }
 
     fun showDatePickerDialog(context: Context) {
@@ -149,14 +150,18 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun updateWeight(weight: String) {
-        _registerProfileState.update { currentState ->
-            currentState.copy(weight = weight.toInt())
+        if (weight.isNotEmpty() && weight != ".") {
+            _registerProfileState.update { currentState ->
+                currentState.copy(weight = weight.toFloat())
+            }
         }
     }
 
     fun updateHeight(height: String) {
-        _registerProfileState.update { currentState ->
-            currentState.copy(height = height.toInt())
+        if (height.isNotEmpty() && height != ".") {
+            _registerProfileState.update { currentState ->
+                currentState.copy(height = height.toFloat())
+            }
         }
     }
 
@@ -178,3 +183,4 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 }
+
