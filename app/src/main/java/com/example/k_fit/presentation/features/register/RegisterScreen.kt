@@ -51,9 +51,13 @@ fun RegisterScreen(
                     viewModel.updateScreenStep(registerState.screenStep - 1)
                 }, Icons.Filled.ArrowBack, "Go Back")
                 Spacer(modifier = Modifier.width(20.dp))
-                if (registerState.screenStep == 3f) CustomRedirectionButton({
-                    viewModel.registerUser(onNavigateToFriends)
-                }, Icons.Filled.Check, "Validate")
+                if (registerState.screenStep == 3f)
+                    CustomRedirectionButton({
+                        viewModel.isFormValid()
+                        if (viewModel.registerProfileState.value.isScreenValid) {
+                            viewModel.registerUser(onNavigateToFriends)
+                        }
+                    }, Icons.Filled.Check, "Validate")
             }
             if (registerState.screenStep != 3f) CustomRedirectionButton({
                 viewModel.isFormValid()
