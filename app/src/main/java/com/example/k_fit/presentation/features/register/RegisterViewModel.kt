@@ -8,6 +8,7 @@ import com.example.k_fit.presentation.base.BaseViewModel
 import com.example.k_fit.presentation.common.Gender
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor() : BaseViewModel() {
     private val auth: FirebaseAuth = Firebase.auth
+    private val db = Firebase.firestore
 
     private val _registerProfileState = MutableStateFlow(RegisterProfileState())
     val registerProfileState: StateFlow<RegisterProfileState> = _registerProfileState
@@ -167,12 +169,24 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun registerUser(home: () -> Unit) {
+        val user = hashMapOf(
+            "email" to _registerProfileState.value.email,
+            "firstName" to _registerProfileState.value.firstName,
+            "lastName" to _registerProfileState.value.lastName,
+            "nickName" to _registerProfileState.value.nickName,
+            "gender" to _registerProfileState.value.gender.toString()
+        )
         if (registerProfileState.value.isScreenValid) {
             auth.createUserWithEmailAndPassword(
                 _registerProfileState.value.email, _registerProfileState.value.password
             ).addOnCompleteListener {
                 if (it.isSuccessful) {
                     home()
+                   db.collection("user").document(auth.currentUser!!.uid).set(user).addOnSuccessListener {
+                       println("New user created on firestore")
+                   }.addOnFailureListener {e ->
+                       println("Error Firestore " + e)
+                   }
                 }
             }
         }
