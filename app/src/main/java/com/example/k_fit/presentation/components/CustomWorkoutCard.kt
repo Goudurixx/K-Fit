@@ -136,7 +136,6 @@ fun CustomWorkoutCardOpened(
         Dialog(
             onDismissRequest = { openDialog = false })
         {
-
             Card(shape = RoundedCornerShape(CornerSize(12))) {
                 Column(modifier = Modifier.padding(8.dp)) {
                     Text(
