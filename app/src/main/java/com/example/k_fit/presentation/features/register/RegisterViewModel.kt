@@ -3,26 +3,27 @@ package com.example.k_fit.presentation.features.register
 import android.app.DatePickerDialog
 import android.content.Context
 import android.widget.DatePicker
+import androidx.lifecycle.viewModelScope
 import com.example.k_fit.R
+import com.example.k_fit.domain.models.CreateNewUser
+import com.example.k_fit.domain.usecases.auth.RegisterFirebaseUseCase
 import com.example.k_fit.presentation.base.BaseViewModel
 import com.example.k_fit.presentation.common.Gender
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor() : BaseViewModel() {
-    private val auth: FirebaseAuth = Firebase.auth
-    private val db = Firebase.firestore
+class RegisterViewModel @Inject constructor(
+    private val registerFirebaseUseCase: RegisterFirebaseUseCase,
+) : BaseViewModel() {
 
     private val _registerProfileState = MutableStateFlow(RegisterProfileState())
     val registerProfileState: StateFlow<RegisterProfileState> = _registerProfileState
@@ -173,27 +174,23 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    fun registerUser(home: () -> Unit) {
-        val user = hashMapOf(
-            "email" to _registerProfileState.value.email,
-            "firstName" to _registerProfileState.value.firstName,
-            "lastName" to _registerProfileState.value.lastName,
-            "nickName" to _registerProfileState.value.nickName,
-            "gender" to _registerProfileState.value.gender.toString()
-        )
-        if (registerProfileState.value.isScreenValid) {
-            auth.createUserWithEmailAndPassword(
-                _registerProfileState.value.email, _registerProfileState.value.password
-            ).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    home()
-                   db.collection("user").document(auth.currentUser!!.uid).set(user).addOnSuccessListener {
-                       println("New user created on firestore")
-                   }.addOnFailureListener {e ->
-                       println("Error Firestore " + e)
-                   }
-                }
-            }
+    fun registerUser(redirection: () -> Unit) {
+        viewModelScope.launch(CoroutineExceptionHandler { _, e ->
+            println("Error to register request")
+        }) {
+            registerFirebaseUseCase(
+                CreateNewUser(
+                    _registerProfileState.value.email,
+                    _registerProfileState.value.nickName,
+                    _registerProfileState.value.firstName,
+                    _registerProfileState.value.lastName,
+                    _registerProfileState.value.birthDate,
+                    _registerProfileState.value.gender!!,
+                    _registerProfileState.value.weight,
+                    _registerProfileState.value.height
+                ), _registerProfileState.value.password
+            )
+            redirection()
         }
     }
 }

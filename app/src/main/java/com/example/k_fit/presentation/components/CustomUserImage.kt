@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import com.example.k_fit.presentation.models.UserProfileUIModel
+import com.example.k_fit.presentation.features.models.UserProfileUIModel
 import com.example.k_fit.ui.theme.RainbowColorsBrush
 
 @Composable

@@ -18,13 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.example.k_fit.R
 import com.example.k_fit.presentation.common.Gender
 import com.example.k_fit.presentation.components.cardComponent.CardContentSubTitle
 import com.example.k_fit.presentation.components.cardComponent.CardContentTitle
 import com.example.k_fit.presentation.components.cardComponent.CardSubTitle
 import com.example.k_fit.presentation.components.cardComponent.CardTitle
-import com.example.k_fit.presentation.models.UserProfileUIModel
-import com.example.k_fit.presentation.models.WorkoutUIModel
+import com.example.k_fit.presentation.features.models.UserProfileUIModel
+import com.example.k_fit.presentation.features.models.WorkoutUIModel
 import com.example.k_fit.ui.theme.CardBackground
 import com.example.k_fit.ui.theme.CardStroke
 
@@ -182,7 +183,7 @@ fun PreviewCustomActivityCard() {
         difficulty = "beginner",
         instructions =
         "Seat yourself on an incline bench with a dumbbell in each hand. You should pressed firmly against he back with your feet together. Allow the dumbbells to hang straight down at your side, holding them with a neutral grip. This will be your starting position. Initiate the movement by flexing at the elbow, attempting to keep the upper arm stationary. Continue to the top of the movement and pause, then slowly return to the start position.\n",
-        image = com.example.k_fit.R.drawable.example
+        image = R.drawable.example
     )
 
     val user = UserProfileUIModel(
