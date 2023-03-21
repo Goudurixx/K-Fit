@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class registerIFirebaseRepositoryModule {
+class RegisterIFirebaseRepositoryModule {
     @Provides
     @Singleton
     fun bindIFirebaseRepository(firebaseRepository: FirebaseRepository): IFirebaseRepository {

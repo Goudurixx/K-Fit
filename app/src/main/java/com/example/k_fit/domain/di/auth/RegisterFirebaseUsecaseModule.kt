@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object registerFirebaseUsecaseModule {
+object RegisterFirebaseUsecaseModule {
     @Provides
     fun provideRegisterFirebaseUseCase(iFirebaseRepository: IFirebaseRepository): RegisterFirebaseUseCase {
         return RegisterFirebaseUseCase(iFirebaseRepository)

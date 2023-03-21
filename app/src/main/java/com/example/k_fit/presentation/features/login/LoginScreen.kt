@@ -22,12 +22,14 @@ import com.example.k_fit.presentation.features.register.RegisterScreen
 import com.example.k_fit.presentation.features.register.RegisterViewModel
 
 @Composable
-fun LoginScreen(onNavigateToFriends: () -> Unit, viewModel: LoginViewModel = hiltViewModel()) {
+fun LoginScreen(
+    onNavigateToFriends: () -> Unit, viewModel: LoginViewModel = hiltViewModel()
+) {
     val loginState by viewModel.loginState.collectAsState()
     val focusManager = LocalFocusManager.current
 
     Column(
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxHeight()
@@ -36,7 +38,7 @@ fun LoginScreen(onNavigateToFriends: () -> Unit, viewModel: LoginViewModel = hil
                     focusManager.clearFocus()
                 })
             }
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp, vertical = 183.dp)
     ) {
         CustomInputTextComponent(title = "Email", onValueChange = { viewModel.updateEmail(it) }, inputText = loginState.email)
         CustomInputPasswordComponent(
@@ -44,6 +46,7 @@ fun LoginScreen(onNavigateToFriends: () -> Unit, viewModel: LoginViewModel = hil
             inputPassword = loginState.password,
             imeAction = ImeAction.Done,
             onValueChange = {viewModel.updatePassword(it)})
+        Spacer(modifier = Modifier.padding(top = 100.dp))
         CustomButtonComponent(title = "Login") {
             viewModel.login()
         }
