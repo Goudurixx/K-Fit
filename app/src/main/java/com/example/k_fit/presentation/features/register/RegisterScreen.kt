@@ -22,7 +22,7 @@ import com.example.k_fit.presentation.components.CustomRedirectionButton
 
 @Composable
 fun RegisterScreen(
-    onNavigateToFriends: () -> Unit, viewModel: RegisterViewModel = hiltViewModel()
+    redirection: () -> Unit, viewModel: RegisterViewModel = hiltViewModel()
 ) {
     val registerState by viewModel.registerProfileState.collectAsState()
     val focusManager = LocalFocusManager.current
@@ -55,7 +55,7 @@ fun RegisterScreen(
                     CustomRedirectionButton({
                         viewModel.isFormValid()
                         if (viewModel.registerProfileState.value.isScreenValid) {
-                            viewModel.registerUser(onNavigateToFriends)
+                            viewModel.registerUser(redirection)
                         }
                     }, Icons.Filled.Check, "Validate")
             }

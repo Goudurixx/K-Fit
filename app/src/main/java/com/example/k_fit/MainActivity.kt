@@ -61,7 +61,7 @@ fun Router(
         }
         composable("register") {
             RegisterScreen(
-                onNavigateToFriends = {
+                redirection = {
                     navController.navigate("loginOrRegister") {
                     }
                 },
