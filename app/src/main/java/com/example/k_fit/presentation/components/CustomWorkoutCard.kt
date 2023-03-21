@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -31,7 +32,7 @@ import com.example.k_fit.ui.theme.CardStroke
 @Composable
 fun CustomWorkoutCard(
     workoutCardName: String,
-    user: UserProfileUIModel,
+    cardIcon: ImageVector,
     workout: WorkoutUIModel
 ) {
     var openCard by remember { mutableStateOf(false) }
@@ -55,13 +56,13 @@ fun CustomWorkoutCard(
         if (openCard) {
             CustomWorkoutCardOpened(
                 workoutCardName = workoutCardName,
-                user = user,
+                cardIcon = cardIcon,
                 workout = workout,
             )
         } else {
             CustomWorkoutCardClosed(
                 workoutCardName = workoutCardName,
-                user = user,
+                cardIcon = cardIcon,
                 workout = workout,
             )
         }
@@ -71,14 +72,17 @@ fun CustomWorkoutCard(
 @Composable
 fun CustomWorkoutCardClosed(
     workoutCardName: String,
-    user: UserProfileUIModel,
+    cardIcon: ImageVector,
     workout: WorkoutUIModel
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
     ) {
-        CustomUserImage(user = user)
+        CustomUserImage(
+            cardIcon = cardIcon,
+            "Image describing the difficulty of the exercise, ${workout.difficulty}"
+        )
         Column(
             modifier = Modifier
                 .padding(end = 16.dp)
@@ -93,7 +97,7 @@ fun CustomWorkoutCardClosed(
 @Composable
 fun CustomWorkoutCardOpened(
     workoutCardName: String,
-    user: UserProfileUIModel,
+    cardIcon: ImageVector,
     workout: WorkoutUIModel
 ) {
     var openDialog by remember { mutableStateOf(false) }
@@ -105,7 +109,10 @@ fun CustomWorkoutCardOpened(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
         ) {
-            CustomUserImage(user = user)
+            CustomUserImage(
+                cardIcon = cardIcon,
+                "Image describing the difficulty of the exercise, ${workout.difficulty}"
+            )
             Column(
                 modifier = Modifier
                     .padding(end = 16.dp)
@@ -200,19 +207,19 @@ fun PreviewCustomActivityCard() {
     {
         CustomWorkoutCard(
             workoutCardName = "Today's workout",
-            user = user,
+            cardIcon = user.profilePicture,//TODO CHANGE TO THE LETTER OF DIFFICULTY
             workout = workout
         )
         Spacer(modifier = Modifier.padding(8.dp))
         CustomWorkoutCardOpened(
             workoutCardName = "Today's workout",
-            user = user,
+            cardIcon = user.profilePicture,
             workout = workout
         )
         Spacer(modifier = Modifier.padding(8.dp))
         CustomWorkoutCardClosed(
             workoutCardName = "Today's workout",
-            user = user,
+            cardIcon = user.profilePicture,
             workout = workout
         )
     }

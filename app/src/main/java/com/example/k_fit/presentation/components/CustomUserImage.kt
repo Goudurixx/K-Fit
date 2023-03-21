@@ -9,16 +9,16 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import com.example.k_fit.presentation.models.UserProfileUIModel
 import com.example.k_fit.ui.theme.RainbowColorsBrush
 
 @Composable
-fun CustomUserImage(user: UserProfileUIModel) {
+fun CustomUserImage(cardIcon: ImageVector, contentDescription: String) {
     Image(
-        imageVector = user.profilePicture,
-        contentDescription = "Profile picture of ${user.nickName}",
+        imageVector = cardIcon,
+        contentDescription = contentDescription,
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .padding(16.dp)

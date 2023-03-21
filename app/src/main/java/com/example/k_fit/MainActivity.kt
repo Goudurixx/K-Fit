@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.k_fit.presentation.features.cardList.CardListScreen
 import com.example.k_fit.presentation.features.login.LoginScreen
 import com.example.k_fit.presentation.features.loginOrRegister.LoginOrRegisterScreen
 import com.example.k_fit.presentation.features.register.RegisterScreen
@@ -60,6 +61,14 @@ fun Router(
         }
         composable("register") {
             RegisterScreen(
+                onNavigateToFriends = {
+                    navController.navigate("loginOrRegister") {
+                    }
+                },
+            )
+        }
+        composable("card_list_screen") {
+            CardListScreen (
                 onNavigateToFriends = {
                     navController.navigate("loginOrRegister") {
                     }
