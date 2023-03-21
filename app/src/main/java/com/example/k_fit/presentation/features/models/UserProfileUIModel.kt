@@ -1,4 +1,4 @@
-package com.example.k_fit.presentation.models
+package com.example.k_fit.presentation.features.models
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle

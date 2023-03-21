@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.k_fit.presentation.models.WorkoutUIModel
+import com.example.k_fit.presentation.features.models.WorkoutUIModel
 import com.example.k_fit.ui.theme.CardBackground
 
 @Composable
