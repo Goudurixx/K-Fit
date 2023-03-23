@@ -192,7 +192,7 @@ fun selectCardIcon(difficulty: String): Int {
         "Beginner" -> R.drawable.beginner
         "Intermediate" -> R.drawable.intermediate
         "Expert" -> R.drawable.expert
-        else -> R.drawable.expert
+        else -> 0
     }
 }
 
