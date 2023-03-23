@@ -10,7 +10,6 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.BrokenImage
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -35,14 +34,7 @@ fun CustomWorkoutCard(
     workout: WorkoutUIModel
 ) {
     var openCard by remember { mutableStateOf(false) }
-
-    val difficultyImage = selectCardIcon(workout.difficulty)
-    val cardIcon =
-        if (difficultyImage != 0) {
-            ImageVector.vectorResource(difficultyImage)
-        } else {
-            Icons.Filled.BrokenImage
-        }
+    val cardIcon = ImageVector.vectorResource(selectCardIcon(workout.difficulty))
 
     Card(
         modifier = Modifier
@@ -192,7 +184,7 @@ fun selectCardIcon(difficulty: String): Int {
         "Beginner" -> R.drawable.beginner
         "Intermediate" -> R.drawable.intermediate
         "Expert" -> R.drawable.expert
-        else -> 0
+        else -> R.drawable.broken
     }
 }
 
