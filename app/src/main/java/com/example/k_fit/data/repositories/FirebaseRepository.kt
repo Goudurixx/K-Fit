@@ -6,7 +6,7 @@ import com.example.k_fit.domain.models.CreateNewUser
 import com.example.k_fit.domain.repositories.IFirebaseRepository
 import javax.inject.Inject
 import javax.inject.Singleton
-
+import com.example.k_fit.data.models.User
 @Singleton
 class FirebaseRepository @Inject constructor(private val firebaseDataSource: FirebaseDataSource) :
     IFirebaseRepository {
@@ -15,7 +15,7 @@ class FirebaseRepository @Inject constructor(private val firebaseDataSource: Fir
         return firebaseDataSource.register(createNewUser.toService(), password)
     }
 
-    override fun login(email: String, password: String) {
+    override suspend fun login(email: String, password: String): User {
         return firebaseDataSource.login(email, password)
     }
 }
