@@ -10,21 +10,21 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.BrokenImage
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.k_fit.R
-import com.example.k_fit.presentation.common.Gender
 import com.example.k_fit.presentation.components.cardComponent.CardContentSubTitle
 import com.example.k_fit.presentation.components.cardComponent.CardContentTitle
 import com.example.k_fit.presentation.components.cardComponent.CardSubTitle
 import com.example.k_fit.presentation.components.cardComponent.CardTitle
-import com.example.k_fit.presentation.features.models.UserProfileUIModel
 import com.example.k_fit.presentation.features.models.WorkoutUIModel
 import com.example.k_fit.ui.theme.CardBackground
 import com.example.k_fit.ui.theme.CardStroke
@@ -32,10 +32,18 @@ import com.example.k_fit.ui.theme.CardStroke
 @Composable
 fun CustomWorkoutCard(
     workoutCardName: String,
-    user: UserProfileUIModel,
     workout: WorkoutUIModel
 ) {
     var openCard by remember { mutableStateOf(false) }
+
+    val difficultyImage = selectCardIcon(workout.difficulty)
+    val cardIcon =
+        if (difficultyImage != 0) {
+            ImageVector.vectorResource(difficultyImage)
+        } else {
+            Icons.Filled.BrokenImage
+        }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -56,13 +64,13 @@ fun CustomWorkoutCard(
         if (openCard) {
             CustomWorkoutCardOpened(
                 workoutCardName = workoutCardName,
-                user = user,
+                cardIcon = cardIcon,
                 workout = workout,
             )
         } else {
             CustomWorkoutCardClosed(
                 workoutCardName = workoutCardName,
-                user = user,
+                cardIcon = cardIcon,
                 workout = workout,
             )
         }
@@ -72,14 +80,17 @@ fun CustomWorkoutCard(
 @Composable
 fun CustomWorkoutCardClosed(
     workoutCardName: String,
-    user: UserProfileUIModel,
+    cardIcon: ImageVector,
     workout: WorkoutUIModel
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
     ) {
-        CustomUserImage(user = user)
+        CustomCardIcon(
+            cardIcon = cardIcon,
+            "Image describing the difficulty of the exercise, ${workout.difficulty}"
+        )
         Column(
             modifier = Modifier
                 .padding(end = 16.dp)
@@ -94,7 +105,7 @@ fun CustomWorkoutCardClosed(
 @Composable
 fun CustomWorkoutCardOpened(
     workoutCardName: String,
-    user: UserProfileUIModel,
+    cardIcon: ImageVector,
     workout: WorkoutUIModel
 ) {
     var openDialog by remember { mutableStateOf(false) }
@@ -106,7 +117,10 @@ fun CustomWorkoutCardOpened(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
         ) {
-            CustomUserImage(user = user)
+            CustomCardIcon(
+                cardIcon = cardIcon,
+                "Image describing the difficulty of the exercise, ${workout.difficulty}"
+            )
             Column(
                 modifier = Modifier
                     .padding(end = 16.dp)
@@ -172,6 +186,16 @@ fun CustomWorkoutCardOpened(
     }
 }
 
+@Composable
+fun selectCardIcon(difficulty: String): Int {
+    return when (difficulty) {
+        "Beginner" -> R.drawable.beginner
+        "Intermediate" -> R.drawable.intermediate
+        "Expert" -> R.drawable.expert
+        else -> R.drawable.expert
+    }
+}
+
 @Preview("PreviewCustomWorkoutCard, opened and closed", showBackground = true)
 @Composable
 fun PreviewCustomActivityCard() {
@@ -180,41 +204,14 @@ fun PreviewCustomActivityCard() {
         type = "Strength",
         muscle = "Biceps",
         equipment = "dumbbell",
-        difficulty = "beginner",
+        difficulty = "Beginner",
         instructions =
         "Seat yourself on an incline bench with a dumbbell in each hand. You should pressed firmly against he back with your feet together. Allow the dumbbells to hang straight down at your side, holding them with a neutral grip. This will be your starting position. Initiate the movement by flexing at the elbow, attempting to keep the upper arm stationary. Continue to the top of the movement and pause, then slowly return to the start position.\n",
         image = R.drawable.example
     )
 
-    val user = UserProfileUIModel(
-        email = "",
-        nickName = "Example User",
-        firstName = "",
-        lastName = "",
-        birthDate = "",
-        gender = Gender.Other,
-        weight = 0,
-        height = 0,
-        profilePicture = Icons.Filled.AccountCircle
+    CustomWorkoutCard(
+        workoutCardName = "Today's workout",
+        workout = workout
     )
-    Column()
-    {
-        CustomWorkoutCard(
-            workoutCardName = "Today's workout",
-            user = user,
-            workout = workout
-        )
-        Spacer(modifier = Modifier.padding(8.dp))
-        CustomWorkoutCardOpened(
-            workoutCardName = "Today's workout",
-            user = user,
-            workout = workout
-        )
-        Spacer(modifier = Modifier.padding(8.dp))
-        CustomWorkoutCardClosed(
-            workoutCardName = "Today's workout",
-            user = user,
-            workout = workout
-        )
-    }
 }
