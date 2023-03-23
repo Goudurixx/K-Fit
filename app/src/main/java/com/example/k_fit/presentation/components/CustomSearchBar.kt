@@ -42,10 +42,10 @@ fun CustomSearchBar(
     modifier: Modifier
 ) {
     var query by remember { mutableStateOf("") }
-
-    var focusedOn by remember { mutableStateOf(false) }
+    var focusedOn by remember { mutableStateOf(true) }
     val focusRequester = remember { FocusRequester() }
 
+    //TODO move local data from here and get from dataSource
     val workoutList: List<WorkoutUIModel> = listOf(
         WorkoutUIModel(
             name = "Incline hammer curls",
@@ -80,6 +80,7 @@ fun CustomSearchBar(
         val radius = 60f
         addRoundRect(RoundRect(size.toRect(), CornerRadius(radius)))
     }
+
     val filteredList = filterList(query, workoutList)
     Surface(
         color = Color(R.color.surface3).copy(alpha = 0.11f),
@@ -94,8 +95,7 @@ fun CustomSearchBar(
             .padding(horizontal = 8.dp)
             .focusRequester(focusRequester)
             .onFocusChanged {
-                if (it.isFocused) focusedOn = true
-                if (!it.isFocused) focusedOn = false
+                focusedOn = !focusedOn
             }
     )
     {
@@ -122,7 +122,7 @@ fun CustomSearchBar(
                             }
                         },
                 )
-                if (!focusedOn)
+                if (!focusedOn or !query.isNotEmpty())
                     IconButton(
                         onClick = {
                             query = ""
@@ -134,11 +134,10 @@ fun CustomSearchBar(
                             "search workout",
                         )
                     }
-                if (focusedOn)
+                if (focusedOn && query.isNotBlank())
                     IconButton(
                         onClick = { query = "" },
-
-                        ) {
+                    ) {
                         Icon(
                             Icons.Filled.Close,
                             "clear query",
