@@ -12,7 +12,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.BrokenImage
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
@@ -33,8 +32,6 @@ import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.k_fit.R
-import com.example.k_fit.presentation.common.Gender
-import com.example.k_fit.presentation.features.models.UserProfileUIModel
 import com.example.k_fit.presentation.features.models.WorkoutUIModel
 
 @Composable
@@ -150,17 +147,6 @@ fun CustomSearchBar(
                     items(filteredList) { workout ->
                         CustomWorkoutCard(
                             workoutCardName = workout.name,
-                            user = UserProfileUIModel(
-                                email = "",
-                                nickName = "",
-                                firstName = "",
-                                lastName = "",
-                                birthDate = "",
-                                gender = Gender.Other,
-                                weight = 0,
-                                height = 0,
-                                profilePicture = Icons.Filled.BrokenImage
-                            ),
                             workout = workout
                         )
                     }
