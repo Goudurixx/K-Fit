@@ -31,7 +31,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun login() {
+    fun login(redirection: () -> Unit) {
         viewModelScope.launch(CoroutineExceptionHandler { _, e ->
             println("Error to login request")
         }) {
@@ -41,6 +41,7 @@ class LoginViewModel @Inject constructor(
                 _loginState.update { currentState ->
                     currentState.copy(name = userInformation.firstName, errorMessage = false)
                 }
+                redirection()
             }else{
                 _loginState.update { currentState ->
                     currentState.copy(errorMessage = true)
