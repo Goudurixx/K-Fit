@@ -35,7 +35,17 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch(CoroutineExceptionHandler { _, e ->
             println("Error to login request")
         }) {
-            loginFirebaseUseCase(_loginState.value.email, _loginState.value.password)
+            val userInformation =
+                loginFirebaseUseCase(_loginState.value.email, _loginState.value.password)
+            if (userInformation.email.isNotBlank()) {
+                _loginState.update { currentState ->
+                    currentState.copy(name = userInformation.firstName, errorMessage = false)
+                }
+            }else{
+                _loginState.update { currentState ->
+                    currentState.copy(errorMessage = true)
+                }
+            }
         }
     }
 }
