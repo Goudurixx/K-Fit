@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.presentation.features.login.LoginScreen
 import com.example.k_fit.presentation.features.loginOrRegister.LoginOrRegisterScreen
+import com.example.k_fit.presentation.features.mainPage.MainPage
 import com.example.k_fit.presentation.features.register.RegisterScreen
 import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,8 +53,8 @@ fun Router(
         }
         composable("login") {
             LoginScreen(
-                onNavigateToFriends = {
-                    navController.navigate("loginOrRegister") {
+                redirection = {
+                    navController.navigate("mainPage") {
                     }
                 },
             )
@@ -65,6 +66,9 @@ fun Router(
                     }
                 },
             )
+        }
+        composable("mainPage") {
+            MainPage()
         }
     }
 }

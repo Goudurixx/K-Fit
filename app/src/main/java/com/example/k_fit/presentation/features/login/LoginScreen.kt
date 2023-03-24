@@ -21,7 +21,7 @@ import com.example.k_fit.presentation.components.CustomInputTextComponent
 
 @Composable
 fun LoginScreen(
-    onNavigateToFriends: () -> Unit, viewModel: LoginViewModel = hiltViewModel()
+    redirection: () -> Unit, viewModel: LoginViewModel = hiltViewModel()
 ) {
     val loginState by viewModel.loginState.collectAsState()
     val focusManager = LocalFocusManager.current
@@ -52,7 +52,7 @@ fun LoginScreen(
             CustomErrorMessageComponent(errorMessage = R.string.wrong_credential)
         Spacer(modifier = Modifier.padding(top = 100.dp))
         CustomButtonComponent(title = "Login") {
-            viewModel.login()
+            viewModel.login(redirection)
         }
     }
 }
