@@ -143,7 +143,7 @@ fun CustomSearchBar(
             }
             if (focusedOn) {
                 Divider()
-                LazyColumn(modifier = modifier.height((filteredList.size * 70 + 40).dp)) {
+                LazyColumn(modifier = modifier.height((filteredList.size * 70 + 40).dp).padding(bottom = 16.dp)) {
                     items(filteredList) { workout ->
                         CustomWorkoutCard(
                             workoutCardName = workout.name,
