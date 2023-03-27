@@ -35,7 +35,7 @@ fun UserProfileScreen(goBack: () -> Unit) {
             CustomRedirectionButton(
                 onClick = {},
                 imageVector = Icons.Filled.Logout,
-                description = ""
+                description = "Logout"
             )
         }
         Column(
