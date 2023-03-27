@@ -1,10 +1,12 @@
 package com.example.k_fit.presentation.features.mainPage
 
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -19,6 +21,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MainPage(
+    userProfile: () -> Unit
 ) {
     val modifier: Modifier = Modifier
     val focusManager = LocalFocusManager.current
@@ -27,15 +30,13 @@ fun MainPage(
     val scope = rememberCoroutineScope()
     var title by remember { mutableStateOf("Workout") }
 
-    KFitTheme {
+    Column(modifier = modifier.pointerInput(Unit) {
+        detectTapGestures(onTap = {
+            focusManager.clearFocus()
+        })
+    }) {
         Scaffold(
-            modifier = Modifier
-                .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectTapGestures(onTap = {
-                        focusManager.clearFocus()
-                    })
-                },
+            modifier = Modifier.fillMaxSize(),
             scaffoldState = scaffoldState,
             topBar =
             {
@@ -52,6 +53,15 @@ fun MainPage(
                             Icon(
                                 imageVector = Icons.Filled.Menu,
                                 contentDescription = "Navigation icon"
+                            )
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = {userProfile()}) {
+                            Icon(
+                                imageVector = Icons.Filled.AccountCircle,
+                                contentDescription = "Navigation icon"
+
                             )
                         }
                     },
@@ -92,5 +102,5 @@ fun MainPage(
 @Preview("Preview of the main Page of the application", showSystemUi = true)
 @Composable
 fun PreviewMainPage() {
-    MainPage()
+    MainPage({})
 }
