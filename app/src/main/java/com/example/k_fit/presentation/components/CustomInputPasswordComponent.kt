@@ -11,8 +11,11 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -21,7 +24,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.example.k_fit.ui.theme.*
+import com.example.k_fit.ui.theme.md_theme_light_outline
 
 @Composable
 fun CustomInputPasswordComponent(
@@ -47,7 +50,7 @@ fun CustomInputPasswordComponent(
             onDone = keyboardActions
         ),
         textStyle = TextStyle(
-            fontSize = 20.sp, color = HintTextColor
+            fontSize = 20.sp, color = md_theme_light_outline
         ),
         modifier = modifier.fillMaxWidth(),
         readOnly = false,

@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.k_fit.ui.theme.RedirectionButtonColor
+import com.example.k_fit.ui.theme.md_theme_light_secondary
 
 @Composable
 fun CustomRedirectionButton(
@@ -20,7 +20,7 @@ fun CustomRedirectionButton(
     IconButton(
         modifier = Modifier
             .clip(CircleShape)
-            .background(color = RedirectionButtonColor),
+            .background(color = md_theme_light_secondary),
         onClick = onClick,
     ) {
         Icon(imageVector = imageVector, description)

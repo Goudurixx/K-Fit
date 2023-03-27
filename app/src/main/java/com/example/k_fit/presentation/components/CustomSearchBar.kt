@@ -1,6 +1,5 @@
 package com.example.k_fit.presentation.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -22,7 +21,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.toRect
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
@@ -33,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.k_fit.R
 import com.example.k_fit.presentation.features.models.WorkoutUIModel
+import com.example.k_fit.ui.theme.md_theme_light_primaryContainer
 
 @Composable
 fun CustomSearchBar(
@@ -80,14 +79,10 @@ fun CustomSearchBar(
 
     val filteredList = filterList(query, workoutList)
     Surface(
-        color = Color(R.color.surface3).copy(alpha = 0.11f),
+        color = md_theme_light_primaryContainer,
         shape = shape,
         modifier = modifier
             .zIndex(1f)
-            .background(
-                shape = shape,
-                color = Color.White.copy(alpha = 1f)
-            )
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
             .focusRequester(focusRequester)

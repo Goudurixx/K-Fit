@@ -14,7 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
-import com.example.k_fit.ui.theme.HintTextColor
+import com.example.k_fit.ui.theme.md_theme_light_outline
 
 @Composable
 fun CustomDatePickerComponent(
@@ -27,7 +27,7 @@ fun CustomDatePickerComponent(
         placeholder = { Text(text = "Birthdate") },
         onValueChange = {},
         textStyle = TextStyle(
-            fontSize = 20.sp, color = HintTextColor
+            fontSize = 20.sp, color = md_theme_light_outline
         ),
         modifier = Modifier
             .fillMaxWidth()

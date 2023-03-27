@@ -1,7 +1,6 @@
 package com.example.k_fit.presentation.features.mainPage
 
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -14,7 +13,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.k_fit.presentation.components.CustomNavigationDrawerComponent
-import com.example.k_fit.ui.theme.Surface3
+import com.example.k_fit.ui.theme.KFitTheme
+import com.example.k_fit.ui.theme.md_theme_light_secondaryContainer
 import kotlinx.coroutines.launch
 
 @Composable
@@ -27,13 +27,15 @@ fun MainPage(
     val scope = rememberCoroutineScope()
     var title by remember { mutableStateOf("Workout") }
 
-    Column(modifier = modifier.pointerInput(Unit) {
-        detectTapGestures(onTap = {
-            focusManager.clearFocus()
-        })
-    }) {
+    KFitTheme {
         Scaffold(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .pointerInput(Unit) {
+                    detectTapGestures(onTap = {
+                        focusManager.clearFocus()
+                    })
+                },
             scaffoldState = scaffoldState,
             topBar =
             {
@@ -53,7 +55,7 @@ fun MainPage(
                             )
                         }
                     },
-                    backgroundColor = Surface3
+                    backgroundColor = md_theme_light_secondaryContainer
                 )
             },
             drawerContent = {

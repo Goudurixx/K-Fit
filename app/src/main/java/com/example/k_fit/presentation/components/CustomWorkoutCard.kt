@@ -2,7 +2,6 @@ package com.example.k_fit.presentation.components
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -25,8 +24,7 @@ import com.example.k_fit.presentation.components.cardComponent.CardContentTitle
 import com.example.k_fit.presentation.components.cardComponent.CardSubTitle
 import com.example.k_fit.presentation.components.cardComponent.CardTitle
 import com.example.k_fit.presentation.features.models.WorkoutUIModel
-import com.example.k_fit.ui.theme.CardBackground
-import com.example.k_fit.ui.theme.CardStroke
+import com.example.k_fit.ui.theme.md_theme_light_secondaryContainer
 
 @Composable
 fun CustomWorkoutCard(
@@ -49,8 +47,7 @@ fun CustomWorkoutCard(
                 indication = null,
             ),
         shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(width = 1.dp, color = CardStroke),
-        backgroundColor = CardBackground,
+        backgroundColor = md_theme_light_secondaryContainer,
         elevation = 10.dp
     ) {
         if (openCard) {

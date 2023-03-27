@@ -5,7 +5,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.NoiseControlOff
 import androidx.compose.runtime.*
@@ -17,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.k_fit.R
-import com.example.k_fit.ui.theme.Surface3
+import com.example.k_fit.ui.theme.primaryContainer
 
 @Composable
 fun CustomNavigationDrawerComponent(
@@ -27,8 +30,6 @@ fun CustomNavigationDrawerComponent(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Surface3)
-
     ) {
         NavDrawerHeader()
         Divider()
@@ -44,7 +45,9 @@ fun NavDrawerHeader() {
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
-        Text(text = stringResource(R.string.app_name))
+        Text(
+            text = stringResource(R.string.app_name),
+        )
     }
 }
 
@@ -98,40 +101,34 @@ fun NavDrawerItem(
     selectedIndex: Int,
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        modifier = modifier
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
+            .background(
+                shape = RoundedCornerShape(60.dp), color = if (selectedIndex == drawerIndex) {
+                  MaterialTheme.colors.primaryContainer
+                } else {
+                   Color.Transparent
+                }
+            )
             .clickable(
                 enabled = true,
                 onClick = onClick,
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
-            ),
-        shape = RoundedCornerShape(60.dp),
-        color = if (selectedIndex == drawerIndex) {
-            MaterialTheme.colors.secondary.copy(alpha = 0.09f)
-        } else {
-            Color.Transparent
-        },
-        contentColor = MaterialTheme.colors.onSurface,
+            )
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxSize()
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                text = label,
-                style = MaterialTheme.typography.subtitle1,
-            )
-        }
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            modifier = modifier.padding(horizontal = 16.dp)
+        )
+        Text(
+            text = label,
+            style = MaterialTheme.typography.subtitle1,
+        )
     }
 }
 
