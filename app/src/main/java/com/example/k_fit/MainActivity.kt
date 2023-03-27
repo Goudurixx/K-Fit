@@ -13,6 +13,7 @@ import com.example.k_fit.presentation.features.login.LoginScreen
 import com.example.k_fit.presentation.features.loginOrRegister.LoginOrRegisterScreen
 import com.example.k_fit.presentation.features.mainPage.MainPage
 import com.example.k_fit.presentation.features.register.RegisterScreen
+import com.example.k_fit.presentation.features.userProfile.UserProfileScreen
 import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -62,13 +63,19 @@ fun Router(
         composable("register") {
             RegisterScreen(
                 redirection = {
-                    navController.navigate("loginOrRegister") {
-                    }
+                    navController.navigate("loginOrRegister") {}
                 },
             )
         }
         composable("mainPage") {
-            MainPage()
+            MainPage(
+                userProfile = { navController.navigate("userProfile") }
+            )
+        }
+        composable("userProfile") {
+            UserProfileScreen(
+                goBack = { navController.navigate("mainPage") }
+            )
         }
     }
 }
