@@ -15,16 +15,17 @@ val HintTextColor = Color(0xFFCAC4D0)
 val RedirectionButtonColor = Color(0xFFE9E8E9)
 val CardStroke = Color(0xFFCAC4D0)
 val CardBackground = Color(0xFFFFFBFE)
+val Surface3 = Color(0xFFf0e9f6)
 
 val RainbowColorsBrush = Brush.sweepGradient(
-        listOf(
-            Color(0xFF9575CD),
-            Color(0xFFBA68C8),
-            Color(0xFFE57373),
-            Color(0xFFFFB74D),
-            Color(0xFFFFF176),
-            Color(0xFFAED581),
-            Color(0xFF4DD0E1),
-            Color(0xFF9575CD)
-        )
+    listOf(
+        Color(0xFF9575CD),
+        Color(0xFFBA68C8),
+        Color(0xFFE57373),
+        Color(0xFFFFB74D),
+        Color(0xFFFFF176),
+        Color(0xFFAED581),
+        Color(0xFF4DD0E1),
+        Color(0xFF9575CD)
     )
+)
