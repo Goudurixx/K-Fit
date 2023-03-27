@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.k_fit.presentation.components.CustomNavigationDrawerComponent
@@ -19,6 +21,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MainPage(
+    userProfile: () -> Unit
 ) {
     val modifier: Modifier = Modifier
     val focusManager = LocalFocusManager.current
@@ -49,6 +52,14 @@ fun MainPage(
                         }) {
                             Icon(
                                 imageVector = Icons.Filled.Menu,
+                                contentDescription = "Navigation icon"
+                            )
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = {userProfile()}) {
+                            Icon(
+                                imageVector = Icons.Filled.AccountCircle,
                                 contentDescription = "Navigation icon"
                             )
                         }
@@ -90,5 +101,5 @@ fun MainPage(
 @Preview("Preview of the main Page of the application", showSystemUi = true)
 @Composable
 fun PreviewMainPage() {
-    MainPage()
+    MainPage({})
 }
