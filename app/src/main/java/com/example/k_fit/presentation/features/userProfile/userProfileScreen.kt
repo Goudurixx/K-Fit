@@ -30,7 +30,7 @@ fun UserProfileScreen(goBack: () -> Unit) {
             CustomRedirectionButton(
                 onClick = goBack,
                 imageVector = Icons.Filled.ArrowBack,
-                description = ""
+                description = "Go back to main page"
             )
             CustomRedirectionButton(
                 onClick = {},
