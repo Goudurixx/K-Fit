@@ -25,7 +25,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
         setContent {
-            Router()
+            KFitTheme {
+                Router()
+            }
         }
     }
 }
@@ -34,51 +36,49 @@ class MainActivity : ComponentActivity() {
 fun Router(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "mainPage"
+    startDestination: String = "loginOrRegister"
 ) {
-    KFitTheme {
-        NavHost(
-            modifier = modifier,
-            navController = navController,
-            startDestination = startDestination
-        ) {
-            composable("loginOrRegister") {
-                LoginOrRegisterScreen(
-                    onNavigateToLogin = {
-                        navController.navigate("login") {
-                        }
-                    },
-                    onNavigateToRegister = {
-                        navController.navigate("register") {
-                        }
-                    },
-                )
-            }
-            composable("login") {
-                LoginScreen(
-                    redirection = {
-                        navController.navigate("mainPage") {
-                        }
-                    },
-                )
-            }
-            composable("register") {
-                RegisterScreen(
-                    redirection = {
-                        navController.navigate("loginOrRegister") {}
-                    },
-                )
-            }
-            composable("mainPage") {
-                MainPage(
-                    userProfile = { navController.navigate("userProfile") }
-                )
-            }
-            composable("userProfile") {
-                UserProfileScreen(
-                    goBack = { navController.navigate("mainPage") }
-                )
-            }
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = startDestination
+    ) {
+        composable("loginOrRegister") {
+            LoginOrRegisterScreen(
+                onNavigateToLogin = {
+                    navController.navigate("login") {
+                    }
+                },
+                onNavigateToRegister = {
+                    navController.navigate("register") {
+                    }
+                },
+            )
+        }
+        composable("login") {
+            LoginScreen(
+                redirection = {
+                    navController.navigate("mainPage") {
+                    }
+                },
+            )
+        }
+        composable("register") {
+            RegisterScreen(
+                redirection = {
+                    navController.navigate("loginOrRegister") {}
+                },
+            )
+        }
+        composable("mainPage") {
+            MainPage(
+                userProfile = { navController.navigate("userProfile") }
+            )
+        }
+        composable("userProfile") {
+            UserProfileScreen(
+                goBack = { navController.navigate("mainPage") }
+            )
         }
     }
 }
