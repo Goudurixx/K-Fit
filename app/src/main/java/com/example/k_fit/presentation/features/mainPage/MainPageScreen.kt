@@ -16,6 +16,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.ScreenRoute
 import com.example.k_fit.presentation.components.CustomNavigationDrawerComponent
 import com.example.k_fit.ui.theme.Surface3
@@ -100,8 +101,9 @@ fun MainPage(
 }
 
 
-//@Preview("Preview of the main Page of the application", showSystemUi = true)
-//@Composable
-//fun PreviewMainPage() {
-//    MainPage({})
-//}
+@Preview("Preview of the main Page of the application", showSystemUi = true)
+@Composable
+fun PreviewMainPage() {
+    val navHostController = rememberNavController()
+    MainPage(navHostController)
+}

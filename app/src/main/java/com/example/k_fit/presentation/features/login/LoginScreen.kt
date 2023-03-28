@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.R
 import com.example.k_fit.ScreenRoute
 import com.example.k_fit.presentation.components.CustomButtonComponent
@@ -55,8 +56,9 @@ fun LoginScreen(
     }
 }
 
-//@Preview("Login screen preview", showSystemUi = true)
-//@Composable
-//fun PreviewRegisterScreen() {
-//    LoginScreen({})
-//}
+@Preview("Login screen preview", showSystemUi = true)
+@Composable
+fun PreviewRegisterScreen() {
+    val navHostController = rememberNavController()
+    LoginScreen(navHostController)
+}

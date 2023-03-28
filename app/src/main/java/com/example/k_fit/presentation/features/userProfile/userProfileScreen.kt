@@ -12,6 +12,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.presentation.components.CustomButtonComponent
 import com.example.k_fit.presentation.components.CustomInputTextComponent
 import com.example.k_fit.presentation.components.CustomRedirectionButton
@@ -60,8 +61,9 @@ fun UserProfileScreen(navHostController: NavHostController) {
     }
 }
 
-//@Preview(showSystemUi = true)
-//@Composable
-//fun PreviewUserProfileScreen() {
-//    UserProfileScreen({})
-//}
+@Preview(showSystemUi = true)
+@Composable
+fun PreviewUserProfileScreen() {
+    val navHostController = rememberNavController()
+    UserProfileScreen(navHostController)
+}
