@@ -47,11 +47,7 @@ fun Router(
             LoginScreen(navController)
         }
         composable("register") {
-            RegisterScreen(
-                redirection = {
-                    navController.navigate("loginOrRegister") {}
-                },
-            )
+            RegisterScreen(navController)
         }
         composable("mainPage") {
             MainPage(

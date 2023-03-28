@@ -12,7 +12,7 @@ import com.example.k_fit.presentation.components.CustomButtonComponent
 
 @Composable
 fun LoginOrRegisterScreen(
-    navigationController: NavHostController,
+    navHostController: NavHostController,
 ) {
 //    val loginOrRegisterViewModel = hiltViewModel<LoginOrRegisterViewModel>()
     Column(
@@ -29,10 +29,10 @@ fun LoginOrRegisterScreen(
             )
         ) {
             CustomButtonComponent(title = "Login",
-                onClick = { navigationController.navigate(ScreenRoute.Login.route) })
+                onClick = { navHostController.navigate(ScreenRoute.Login.route) })
             CustomButtonComponent(
                 title = "Register",
-                onClick = { navigationController.navigate(ScreenRoute.Register.route) })
+                onClick = { navHostController.navigate(ScreenRoute.Register.route) })
         }
     }
 }
