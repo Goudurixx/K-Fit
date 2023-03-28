@@ -27,7 +27,7 @@ fun Router(navHostController: NavHostController) {
             LoginScreen(navHostController)
         }
         composable(ScreenRoute.MainPage.route) {
-            MainPage(userProfile = { /*TODO*/ })
+            MainPage(navHostController)
         }
         composable(ScreenRoute.UserProfile.route) {
             UserProfileScreen(goBack = { /*TODO*/ })

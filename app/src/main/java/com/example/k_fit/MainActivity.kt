@@ -50,9 +50,7 @@ fun Router(
             RegisterScreen(navController)
         }
         composable("mainPage") {
-            MainPage(
-                userProfile = { navController.navigate("userProfile") }
-            )
+            MainPage(navController)
         }
         composable("userProfile") {
             UserProfileScreen(
