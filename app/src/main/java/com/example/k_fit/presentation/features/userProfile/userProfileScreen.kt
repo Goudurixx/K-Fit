@@ -11,12 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.k_fit.presentation.components.CustomButtonComponent
 import com.example.k_fit.presentation.components.CustomInputTextComponent
 import com.example.k_fit.presentation.components.CustomRedirectionButton
 
 @Composable
-fun UserProfileScreen(goBack: () -> Unit) {
+fun UserProfileScreen(navHostController: NavHostController) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(horizontal = 16.dp)
@@ -28,7 +29,7 @@ fun UserProfileScreen(goBack: () -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             CustomRedirectionButton(
-                onClick = goBack,
+                onClick = { navHostController.popBackStack() },
                 imageVector = Icons.Filled.ArrowBack,
                 description = "Go back to main page"
             )
@@ -59,8 +60,8 @@ fun UserProfileScreen(goBack: () -> Unit) {
     }
 }
 
-@Preview(showSystemUi = true)
-@Composable
-fun PreviewUserProfileScreen() {
-    UserProfileScreen({})
-}
+//@Preview(showSystemUi = true)
+//@Composable
+//fun PreviewUserProfileScreen() {
+//    UserProfileScreen({})
+//}

@@ -30,7 +30,7 @@ fun Router(navHostController: NavHostController) {
             MainPage(navHostController)
         }
         composable(ScreenRoute.UserProfile.route) {
-            UserProfileScreen(goBack = { /*TODO*/ })
+            UserProfileScreen(navHostController)
         }
     }
 }

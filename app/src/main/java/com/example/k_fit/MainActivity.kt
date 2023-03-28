@@ -53,9 +53,7 @@ fun Router(
             MainPage(navController)
         }
         composable("userProfile") {
-            UserProfileScreen(
-                goBack = { navController.navigate("mainPage") }
-            )
+            UserProfileScreen(navController)
         }
     }
 }
