@@ -13,7 +13,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.R
+import com.example.k_fit.ScreenRoute
 import com.example.k_fit.presentation.components.CustomButtonComponent
 import com.example.k_fit.presentation.components.CustomErrorMessageComponent
 import com.example.k_fit.presentation.components.CustomInputPasswordComponent
@@ -21,13 +24,12 @@ import com.example.k_fit.presentation.components.CustomInputTextComponent
 
 @Composable
 fun LoginScreen(
-    redirection: () -> Unit, viewModel: LoginViewModel = hiltViewModel()
+    navHostController: NavHostController, viewModel: LoginViewModel = hiltViewModel()
 ) {
     val loginState by viewModel.loginState.collectAsState()
     val focusManager = LocalFocusManager.current
 
-    Column(
-        verticalArrangement = Arrangement.Bottom,
+    Column(verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxHeight()
@@ -36,23 +38,20 @@ fun LoginScreen(
                     focusManager.clearFocus()
                 })
             }
-            .padding(horizontal = 16.dp, vertical = 183.dp)
-    ) {
+            .padding(horizontal = 16.dp, vertical = 183.dp)) {
         CustomInputTextComponent(
             title = "Email",
             onValueChange = { viewModel.updateEmail(it) },
             inputText = loginState.email
         )
-        CustomInputPasswordComponent(
-            title = "Password",
+        CustomInputPasswordComponent(title = "Password",
             inputPassword = loginState.password,
             imeAction = ImeAction.Done,
             onValueChange = { viewModel.updatePassword(it) })
-        if (loginState.errorMessage)
-            CustomErrorMessageComponent(errorMessage = R.string.wrong_credential)
+        if (loginState.errorMessage) CustomErrorMessageComponent(errorMessage = R.string.wrong_credential)
         Spacer(modifier = Modifier.padding(top = 100.dp))
         CustomButtonComponent(title = "Login") {
-            viewModel.login(redirection)
+            viewModel.login { navHostController.navigate(ScreenRoute.MainPage.route) }
         }
     }
 }
@@ -60,5 +59,6 @@ fun LoginScreen(
 @Preview("Login screen preview", showSystemUi = true)
 @Composable
 fun PreviewRegisterScreen() {
-    LoginScreen({})
+    val navHostController = rememberNavController()
+    LoginScreen(navHostController)
 }

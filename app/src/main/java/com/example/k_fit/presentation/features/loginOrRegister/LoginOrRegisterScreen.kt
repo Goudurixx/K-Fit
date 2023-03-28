@@ -6,12 +6,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.k_fit.ScreenRoute
 import com.example.k_fit.presentation.components.CustomButtonComponent
 
 @Composable
 fun LoginOrRegisterScreen(
-    onNavigateToLogin: () -> Unit,
-    onNavigateToRegister: () -> Unit,
+    navHostController: NavHostController,
 ) {
 //    val loginOrRegisterViewModel = hiltViewModel<LoginOrRegisterViewModel>()
     Column(
@@ -27,8 +29,11 @@ fun LoginOrRegisterScreen(
                 alignment = Alignment.CenterHorizontally
             )
         ) {
-            CustomButtonComponent(title = "Login", onNavigateToLogin)
-            CustomButtonComponent(title = "Register", onNavigateToRegister)
+            CustomButtonComponent(title = "Login",
+                onClick = { navHostController.navigate(ScreenRoute.Login.route) })
+            CustomButtonComponent(
+                title = "Register",
+                onClick = { navHostController.navigate(ScreenRoute.Register.route) })
         }
     }
 }
@@ -36,5 +41,6 @@ fun LoginOrRegisterScreen(
 @Preview("Preview of the login or register screen", showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewLoginScreen() {
-    LoginOrRegisterScreen({}, {})
+    val navHostController = rememberNavController()
+    LoginOrRegisterScreen(navHostController)
 }

@@ -15,13 +15,16 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.k_fit.ScreenRoute
 import com.example.k_fit.presentation.components.CustomNavigationDrawerComponent
 import com.example.k_fit.ui.theme.Surface3
 import kotlinx.coroutines.launch
 
 @Composable
 fun MainPage(
-    userProfile: () -> Unit
+    navHostController: NavHostController
 ) {
     val modifier: Modifier = Modifier
     val focusManager = LocalFocusManager.current
@@ -57,7 +60,7 @@ fun MainPage(
                         }
                     },
                     actions = {
-                        IconButton(onClick = {userProfile()}) {
+                        IconButton(onClick = { navHostController.navigate(ScreenRoute.UserProfile.route) }) {
                             Icon(
                                 imageVector = Icons.Filled.AccountCircle,
                                 contentDescription = "Navigation icon"
@@ -101,5 +104,6 @@ fun MainPage(
 @Preview("Preview of the main Page of the application", showSystemUi = true)
 @Composable
 fun PreviewMainPage() {
-    MainPage({})
+    val navHostController = rememberNavController()
+    MainPage(navHostController)
 }
