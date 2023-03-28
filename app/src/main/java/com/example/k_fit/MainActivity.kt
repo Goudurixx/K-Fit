@@ -41,16 +41,7 @@ fun Router(
         startDestination = startDestination
     ) {
         composable("loginOrRegister") {
-            LoginOrRegisterScreen(
-                onNavigateToLogin = {
-                    navController.navigate("login") {
-                    }
-                },
-                onNavigateToRegister = {
-                    navController.navigate("register") {
-                    }
-                },
-            )
+            LoginOrRegisterScreen(navController)
         }
         composable("login") {
             LoginScreen(
