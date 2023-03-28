@@ -24,7 +24,7 @@ fun Router(navigationHostController: NavHostController) {
             RegisterScreen(redirection = { /*TODO*/ })
         }
         composable(ScreenRoute.Login.route) {
-            LoginScreen(redirection = { /*TODO*/ })
+            LoginScreen(navigationHostController)
         }
         composable(ScreenRoute.MainPage.route) {
             MainPage(userProfile = { /*TODO*/ })
