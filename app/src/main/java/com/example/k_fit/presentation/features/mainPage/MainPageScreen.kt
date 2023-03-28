@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MainPage(
-    userProfile: () -> Unit
+    navHostController: NavHostController
 ) {
     val modifier: Modifier = Modifier
     val focusManager = LocalFocusManager.current
@@ -55,7 +55,7 @@ fun MainPage(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { userProfile() }) {
+                    IconButton(onClick = { navHostController.navigate(ScreenRoute.UserProfile.route) }) {
                         Icon(
                             imageVector = Icons.Filled.AccountCircle,
                             contentDescription = "Navigation icon"
@@ -91,7 +91,6 @@ fun MainPage(
                     Text("Screen not done")
                 }
             }
-
         }
     )
 }
@@ -100,5 +99,6 @@ fun MainPage(
 @Preview("Preview of the main Page of the application", showSystemUi = true)
 @Composable
 fun PreviewMainPage() {
-    MainPage({})
+    val navHostController = rememberNavController()
+    MainPage(navHostController)
 }

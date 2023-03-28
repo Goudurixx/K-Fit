@@ -18,13 +18,15 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.k_fit.R
+import com.example.k_fit.ScreenRoute
 import com.example.k_fit.presentation.components.CustomErrorMessageComponent
 import com.example.k_fit.presentation.components.CustomRedirectionButton
 
 @Composable
 fun RegisterScreen(
-    redirection: () -> Unit, viewModel: RegisterViewModel = hiltViewModel()
+    navHostController: NavHostController, viewModel: RegisterViewModel = hiltViewModel()
 ) {
     val registerState by viewModel.registerProfileState.collectAsState()
     val focusManager = LocalFocusManager.current
@@ -58,7 +60,7 @@ fun RegisterScreen(
                     CustomRedirectionButton({
                         viewModel.isFormValid()
                         if (viewModel.registerProfileState.value.isScreenValid) {
-                            viewModel.registerUser(redirection)
+                            viewModel.registerUser { navHostController.navigate(ScreenRoute.LoginOrRegister.route) }
                         }
                     }, Icons.Filled.Check, "Validate")
             }
