@@ -18,7 +18,7 @@ fun Router(navigationHostController: NavHostController) {
         startDestination = ScreenRoute.LoginOrRegister.route
     ) {
         composable(ScreenRoute.Login.route) {
-            LoginOrRegisterScreen(onNavigateToLogin = { /*TODO*/ }) {}
+            LoginOrRegisterScreen(navigationHostController)
         }
         composable(ScreenRoute.Register.route) {
             RegisterScreen(redirection = { /*TODO*/ })
