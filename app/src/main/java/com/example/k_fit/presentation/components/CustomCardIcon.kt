@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.k_fit.ui.theme.RainbowColorsBrush
 
 @Composable
-fun CustomCardIcon(cardIcon : ImageVector, contentDescription : String) {
+fun CustomCardIcon(cardIcon: ImageVector, contentDescription: String) {
     Image(
         imageVector = cardIcon,
         contentDescription = contentDescription,
@@ -28,5 +28,5 @@ fun CustomCardIcon(cardIcon : ImageVector, contentDescription : String) {
                 BorderStroke(1.dp, RainbowColorsBrush),
                 CircleShape
             )
-        )
+    )
 }

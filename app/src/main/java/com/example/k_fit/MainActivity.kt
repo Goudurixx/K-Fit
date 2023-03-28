@@ -14,6 +14,7 @@ import com.example.k_fit.presentation.features.loginOrRegister.LoginOrRegisterSc
 import com.example.k_fit.presentation.features.mainPage.MainPage
 import com.example.k_fit.presentation.features.register.RegisterScreen
 import com.example.k_fit.presentation.features.userProfile.UserProfileScreen
+import com.example.k_fit.ui.theme.KFitTheme
 import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,49 +34,51 @@ class MainActivity : ComponentActivity() {
 fun Router(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "loginOrRegister"
+    startDestination: String = "mainPage"
 ) {
-    NavHost(
-        modifier = modifier,
-        navController = navController,
-        startDestination = startDestination
-    ) {
-        composable("loginOrRegister") {
-            LoginOrRegisterScreen(
-                onNavigateToLogin = {
-                    navController.navigate("login") {
-                    }
-                },
-                onNavigateToRegister = {
-                    navController.navigate("register") {
-                    }
-                },
-            )
-        }
-        composable("login") {
-            LoginScreen(
-                redirection = {
-                    navController.navigate("mainPage") {
-                    }
-                },
-            )
-        }
-        composable("register") {
-            RegisterScreen(
-                redirection = {
-                    navController.navigate("loginOrRegister") {}
-                },
-            )
-        }
-        composable("mainPage") {
-            MainPage(
-                userProfile = { navController.navigate("userProfile") }
-            )
-        }
-        composable("userProfile") {
-            UserProfileScreen(
-                goBack = { navController.navigate("mainPage") }
-            )
+    KFitTheme {
+        NavHost(
+            modifier = modifier,
+            navController = navController,
+            startDestination = startDestination
+        ) {
+            composable("loginOrRegister") {
+                LoginOrRegisterScreen(
+                    onNavigateToLogin = {
+                        navController.navigate("login") {
+                        }
+                    },
+                    onNavigateToRegister = {
+                        navController.navigate("register") {
+                        }
+                    },
+                )
+            }
+            composable("login") {
+                LoginScreen(
+                    redirection = {
+                        navController.navigate("mainPage") {
+                        }
+                    },
+                )
+            }
+            composable("register") {
+                RegisterScreen(
+                    redirection = {
+                        navController.navigate("loginOrRegister") {}
+                    },
+                )
+            }
+            composable("mainPage") {
+                MainPage(
+                    userProfile = { navController.navigate("userProfile") }
+                )
+            }
+            composable("userProfile") {
+                UserProfileScreen(
+                    goBack = { navController.navigate("mainPage") }
+                )
+            }
         }
     }
 }

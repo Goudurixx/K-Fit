@@ -1,7 +1,9 @@
 package com.example.k_fit.presentation.features.login
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -36,6 +38,7 @@ fun LoginScreen(
                     focusManager.clearFocus()
                 })
             }
+            .background(color = MaterialTheme.colors.background)
             .padding(horizontal = 16.dp, vertical = 183.dp)
     ) {
         CustomInputTextComponent(

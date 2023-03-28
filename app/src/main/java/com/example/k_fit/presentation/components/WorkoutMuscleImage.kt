@@ -2,10 +2,10 @@ package com.example.k_fit.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -18,7 +18,7 @@ fun WorkoutMusclesImage(workout: WorkoutUIModel, modifier: Modifier) {
         painter = painterResource(id = workout.image),
         contentDescription = "Image of a body with highlighted ${workout.muscle}",
         contentScale = ContentScale.FillHeight,
-        colorFilter = ColorFilter.tint(color = MaterialTheme.colors.surface, blendMode = BlendMode.Multiply),
+        colorFilter = ColorFilter.tint(color = Color.White, blendMode = BlendMode.Multiply),
         modifier = modifier
             .size(80.dp)
     )

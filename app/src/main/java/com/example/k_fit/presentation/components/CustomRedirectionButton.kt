@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -11,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.k_fit.ui.theme.md_theme_light_secondary
+import com.example.k_fit.ui.theme.onSurfaceVariant
 
 @Composable
 fun CustomRedirectionButton(
@@ -20,10 +21,10 @@ fun CustomRedirectionButton(
     IconButton(
         modifier = Modifier
             .clip(CircleShape)
-            .background(color = md_theme_light_secondary),
+            .background(color = MaterialTheme.colors.onSurfaceVariant.copy(0.12f)),
         onClick = onClick,
     ) {
-        Icon(imageVector = imageVector, description)
+        Icon(imageVector = imageVector, contentDescription = description, tint = MaterialTheme.colors.onSurfaceVariant)
     }
 }
 

@@ -37,61 +37,64 @@ private val DarkColorPalette = darkColors(
 
 val Colors.primaryContainer: Color
     get() = if (isLight) md_theme_light_primaryContainer else md_theme_dark_primaryContainer
+
 val Colors.onPrimaryContainer: Color
     get() = if (isLight) md_theme_light_onPrimaryContainer else md_theme_dark_onPrimaryContainer
+
 val Colors.secondaryContainer: Color
     get() = if (isLight) md_theme_light_secondaryContainer else md_theme_dark_secondaryContainer
+
 val Colors.onSecondaryContainer: Color
-    @Composable
     get() = if (isLight) md_theme_light_onSecondaryContainer else md_theme_dark_onSecondaryContainer
+
 val Colors.tertiary: Color
-    @Composable
     get() = if (isLight) md_theme_light_tertiary else md_theme_dark_tertiary
+
 val Colors.onTertiary: Color
-    @Composable
     get() = if (isLight) md_theme_light_onTertiary else md_theme_dark_onTertiary
+
 val Colors.tertiaryContainer: Color
-    @Composable
     get() = if (isLight) md_theme_light_tertiaryContainer else md_theme_dark_tertiaryContainer
+
 val Colors.onTertiaryContainer: Color
-    @Composable
     get() = if (isLight) md_theme_light_onTertiaryContainer else md_theme_dark_onTertiaryContainer
+
 val Colors.errorContainer: Color
-    @Composable
     get() = if (isLight) md_theme_light_errorContainer else md_theme_dark_errorContainer
+
 val Colors.onErrorContainer: Color
-    @Composable
     get() = if (isLight) md_theme_light_onErrorContainer else md_theme_dark_onErrorContainer
+
 val Colors.outline: Color
-    @Composable
     get() = if (isLight) md_theme_light_outline else md_theme_dark_outline
+
 val Colors.surfaceVariant: Color
-    @Composable
     get() = if (isLight) md_theme_light_surfaceVariant else md_theme_dark_surfaceVariant
+
 val Colors.onSurfaceVariant: Color
-    @Composable
     get() = if (isLight) md_theme_light_onSurfaceVariant else md_theme_dark_onSurfaceVariant
+
 val Colors.inverseSurface: Color
-    @Composable
     get() = if (isLight) md_theme_light_inverseSurface else md_theme_dark_inverseSurface
+
 val Colors.inverseOnSurface: Color
-    @Composable
     get() = if (isLight) md_theme_light_inverseOnSurface else md_theme_dark_inverseOnSurface
+
 val Colors.inversePrimary: Color
-    @Composable
     get() = if (isLight) md_theme_light_inversePrimary else md_theme_dark_inversePrimary
+
 val Colors.shadow: Color
-    @Composable
     get() = if (isLight) md_theme_light_shadow else md_theme_dark_shadow
+
 val Colors.surfaceTint: Color
-    @Composable
     get() = if (isLight) md_theme_light_surfaceTint else md_theme_dark_surfaceTint
+
 val Colors.outlineVariant: Color
-    @Composable
     get() = if (isLight) md_theme_light_outlineVariant else md_theme_dark_outlineVariant
+
 val Colors.scrim: Color
-    @Composable
     get() = if (isLight) md_theme_light_scrim else md_theme_dark_scrim
+
 
 @Composable
 fun KFitTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
@@ -100,7 +103,6 @@ fun KFitTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable (
     } else {
         LightColorPalette
     }
-
 
     MaterialTheme(
         colors = colors,

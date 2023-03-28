@@ -1,7 +1,6 @@
 package com.example.k_fit.presentation.features.mainPage
 
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -15,8 +14,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.k_fit.presentation.components.CustomNavigationDrawerComponent
-import com.example.k_fit.ui.theme.KFitTheme
-import com.example.k_fit.ui.theme.md_theme_light_secondaryContainer
 import kotlinx.coroutines.launch
 
 @Composable
@@ -30,72 +27,73 @@ fun MainPage(
     val scope = rememberCoroutineScope()
     var title by remember { mutableStateOf("Workout") }
 
-    Column(modifier = modifier.pointerInput(Unit) {
-        detectTapGestures(onTap = {
-            focusManager.clearFocus()
-        })
-    }) {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            scaffoldState = scaffoldState,
-            topBar =
-            {
-                TopAppBar(
-                    title = { Text(text = title) },
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            scope.launch {
-                                scaffoldState.drawerState.apply {
-                                    if (isClosed) open() else close()
-                                }
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = {
+                    focusManager.clearFocus()
+                })
+            },
+        scaffoldState = scaffoldState,
+        topBar =
+        {
+            TopAppBar(
+                title = { Text(text = title) },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        scope.launch {
+                            scaffoldState.drawerState.apply {
+                                if (isClosed) open() else close()
                             }
-                        }) {
-                            Icon(
-                                imageVector = Icons.Filled.Menu,
-                                contentDescription = "Navigation icon"
-                            )
                         }
-                    },
-                    actions = {
-                        IconButton(onClick = {userProfile()}) {
-                            Icon(
-                                imageVector = Icons.Filled.AccountCircle,
-                                contentDescription = "Navigation icon"
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Menu,
+                            contentDescription = "Navigation icon"
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { userProfile() }) {
+                        Icon(
+                            imageVector = Icons.Filled.AccountCircle,
+                            contentDescription = "Navigation icon"
 
-                            )
-                        }
-                    },
-                    backgroundColor = md_theme_light_secondaryContainer
-                )
-            },
-            drawerContent = {
-                CustomNavigationDrawerComponent(
-                    modifier = modifier,
-                    selectedIndex = selectedIndex,
-                    onNavigationItemSelected = { index ->
-                        selectedIndex = index
+                        )
                     }
-                )
-            },
-            drawerShape = RoundedCornerShape(topEnd = 32.dp, bottomEnd = 32.dp),
-            content = { paddingValues ->
-                when (selectedIndex) {
-                    0 -> {
-                        WorkoutScreen(paddingValues, modifier)
-                        title = "Workout"
-                    }
-                    1 -> {
-                        FavoriteScreen(paddingValues, modifier)
-                        title = "Favorite"
-                    }
-                    else -> {
-                        Text("Screen not done")
-                    }
+                },
+                backgroundColor = MaterialTheme.colors.surface,
+                elevation = 0.dp
+            )
+        },
+        drawerContent = {
+            CustomNavigationDrawerComponent(
+                modifier = modifier,
+                selectedIndex = selectedIndex,
+                onNavigationItemSelected = { index ->
+                    selectedIndex = index
                 }
-
+            )
+        },
+        drawerShape = RoundedCornerShape(topEnd = 32.dp, bottomEnd = 32.dp),
+        content = { paddingValues ->
+            when (selectedIndex) {
+                0 -> {
+                    WorkoutScreen(paddingValues, modifier)
+                    title = "Workout"
+                }
+                1 -> {
+                    FavoriteScreen(paddingValues, modifier)
+                    title = "Favorite"
+                }
+                else -> {
+                    Text("Screen not done")
+                }
             }
-        )
-    }
+
+        }
+    )
 }
 
 

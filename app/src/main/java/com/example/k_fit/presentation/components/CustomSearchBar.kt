@@ -1,15 +1,13 @@
 package com.example.k_fit.presentation.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Surface
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -24,6 +22,7 @@ import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
@@ -31,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.k_fit.R
 import com.example.k_fit.presentation.features.models.WorkoutUIModel
-import com.example.k_fit.ui.theme.md_theme_light_primaryContainer
+import com.example.k_fit.ui.theme.onSecondaryContainer
 
 @Composable
 fun CustomSearchBar(
@@ -79,7 +78,8 @@ fun CustomSearchBar(
 
     val filteredList = filterList(query, workoutList)
     Surface(
-        color = md_theme_light_primaryContainer,
+        color = MaterialTheme.colors.primary,
+        contentColor = MaterialTheme.colors.onSurface,
         shape = shape,
         modifier = modifier
             .zIndex(1f)
@@ -91,7 +91,7 @@ fun CustomSearchBar(
             }
     )
     {
-        Column {
+        Column(modifier = modifier.background(MaterialTheme.colors.surface.copy(alpha = 0.89f))) {
             Row(
                 modifier
                     .padding(horizontal = 16.dp, vertical = 16.dp)
@@ -101,9 +101,6 @@ fun CustomSearchBar(
                 BasicTextField(
                     value = query,
                     onValueChange = { query = it },
-                    enabled = true,
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                     modifier = modifier
                         .fillMaxWidth(0.9F)
                         .semantics {
@@ -113,8 +110,13 @@ fun CustomSearchBar(
                                 true
                             }
                         },
+                    enabled = true,
+                    textStyle = TextStyle(color = MaterialTheme.colors.onSecondaryContainer),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search)
+
                 )
-                if (!focusedOn or !query.isNotEmpty())
+                if (!focusedOn or query.isEmpty())
                     IconButton(
                         onClick = {
                             query = ""
@@ -138,7 +140,11 @@ fun CustomSearchBar(
             }
             if (focusedOn) {
                 Divider()
-                LazyColumn(modifier = modifier.height((filteredList.size * 70 + 40).dp).padding(bottom = 16.dp)) {
+                LazyColumn(
+                    modifier = modifier
+                        .height((filteredList.size * 70 + 40).dp)
+                        .padding(bottom = 16.dp)
+                ) {
                     items(filteredList) { workout ->
                         CustomWorkoutCard(
                             workoutCardName = workout.name,

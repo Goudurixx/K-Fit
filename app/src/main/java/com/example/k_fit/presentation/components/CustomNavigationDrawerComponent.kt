@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.k_fit.R
-import com.example.k_fit.ui.theme.primaryContainer
+import com.example.k_fit.ui.theme.secondaryContainer
 
 @Composable
 fun CustomNavigationDrawerComponent(
@@ -108,7 +108,7 @@ fun NavDrawerItem(
             .height(56.dp)
             .background(
                 shape = RoundedCornerShape(60.dp), color = if (selectedIndex == drawerIndex) {
-                  MaterialTheme.colors.primaryContainer
+                  MaterialTheme.colors.secondaryContainer
                 } else {
                    Color.Transparent
                 }

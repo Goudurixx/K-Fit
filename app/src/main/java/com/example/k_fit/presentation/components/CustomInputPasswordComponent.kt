@@ -4,10 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActionScope
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -24,7 +21,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.example.k_fit.ui.theme.md_theme_light_outline
 
 @Composable
 fun CustomInputPasswordComponent(
@@ -50,7 +46,7 @@ fun CustomInputPasswordComponent(
             onDone = keyboardActions
         ),
         textStyle = TextStyle(
-            fontSize = 20.sp, color = md_theme_light_outline
+            fontSize = 20.sp, color = MaterialTheme.colors.onSurface
         ),
         modifier = modifier.fillMaxWidth(),
         readOnly = false,

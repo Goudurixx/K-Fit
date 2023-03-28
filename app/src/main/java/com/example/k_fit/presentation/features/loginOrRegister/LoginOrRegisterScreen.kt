@@ -1,6 +1,8 @@
 package com.example.k_fit.presentation.features.loginOrRegister
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,6 +19,7 @@ fun LoginOrRegisterScreen(
     Column(
         verticalArrangement = Arrangement.Bottom,
         modifier = Modifier.fillMaxHeight()
+            .background(color = MaterialTheme.colors.background)
     ) {
         Row(
             Modifier
