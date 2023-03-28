@@ -12,19 +12,19 @@ import com.example.k_fit.presentation.features.register.RegisterScreen
 import com.example.k_fit.presentation.features.userProfile.UserProfileScreen
 
 @Composable
-fun Router(navigationHostController: NavHostController) {
+fun Router(navHostController: NavHostController) {
     NavHost(
-        navController = navigationHostController,
+        navController = navHostController,
         startDestination = ScreenRoute.LoginOrRegister.route
     ) {
         composable(ScreenRoute.Login.route) {
-            LoginOrRegisterScreen(navigationHostController)
+            LoginOrRegisterScreen(navHostController)
         }
         composable(ScreenRoute.Register.route) {
-            RegisterScreen(redirection = { /*TODO*/ })
+            RegisterScreen(navHostController)
         }
         composable(ScreenRoute.Login.route) {
-            LoginScreen(navigationHostController)
+            LoginScreen(navHostController)
         }
         composable(ScreenRoute.MainPage.route) {
             MainPage(userProfile = { /*TODO*/ })
