@@ -2,6 +2,7 @@ package com.example.k_fit.presentation.features.register
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.util.Log
 import android.widget.DatePicker
 import androidx.lifecycle.viewModelScope
 import com.example.k_fit.R
@@ -11,9 +12,7 @@ import com.example.k_fit.presentation.base.BaseViewModel
 import com.example.k_fit.presentation.common.Gender
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
 import java.util.regex.Matcher
@@ -28,6 +27,8 @@ class RegisterViewModel @Inject constructor(
     private val _registerProfileState = MutableStateFlow(RegisterProfileState())
     val registerProfileState: StateFlow<RegisterProfileState> = _registerProfileState
 
+    private val _registerResult = MutableStateFlow<Result<Unit>>(Result.success(Unit))
+    val registerResult: StateFlow<Result<Unit>> = _registerResult
     fun updateScreenStep(step: Float) {
         _registerProfileState.update { currentState ->
             currentState.copy(screenStep = step)
@@ -176,7 +177,7 @@ class RegisterViewModel @Inject constructor(
 
     fun registerUser(redirection: () -> Unit) {
         viewModelScope.launch(CoroutineExceptionHandler { _, e ->
-            println("Error to register request")
+            Log.e("Error to register request", e.toString())
         }) {
             registerFirebaseUseCase(
                 CreateNewUser(
@@ -189,8 +190,12 @@ class RegisterViewModel @Inject constructor(
                     _registerProfileState.value.weight,
                     _registerProfileState.value.height
                 ), _registerProfileState.value.password
-            )
-            redirection()
+            ).onStart { _registerResult.value = Result.success(Unit) }
+                .onEach { result -> _registerResult.value = result }
+                .collect { result ->
+                    if (result.isSuccess)
+                        redirection()
+                }
         }
     }
 }
