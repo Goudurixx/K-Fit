@@ -75,7 +75,6 @@ fun CustomSearchBar(
         val radius = 60f
         addRoundRect(RoundRect(size.toRect(), CornerRadius(radius)))
     }
-
     val filteredList = filterList(query, workoutList)
     Surface(
         color = MaterialTheme.colors.primary,
@@ -114,7 +113,6 @@ fun CustomSearchBar(
                     textStyle = TextStyle(color = MaterialTheme.colors.onSecondaryContainer),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search)
-
                 )
                 if (!focusedOn or query.isEmpty())
                     IconButton(

@@ -11,10 +11,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.k_fit.R
 import com.example.k_fit.ScreenRoute
 import com.example.k_fit.presentation.components.CustomNavigationDrawerComponent
 import kotlinx.coroutines.launch
@@ -28,7 +30,7 @@ fun MainPageScreen(
     var selectedIndex by remember { mutableStateOf(0) }
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
-    var title by remember { mutableStateOf("Workout") }
+    var title by remember { mutableStateOf("") }
 
     Scaffold(
         modifier = Modifier
@@ -84,11 +86,11 @@ fun MainPageScreen(
             when (selectedIndex) {
                 0 -> {
                     WorkoutScreen(paddingValues, modifier)
-                    title = "Workout"
+                    title = stringResource(id = R.string.workout_screen_title)
                 }
                 1 -> {
                     FavoriteScreen(paddingValues, modifier)
-                    title = "Favorite"
+                    title = stringResource(id = R.string.favorite_screen_title)
                 }
                 else -> {
                     Text("Screen not done")
