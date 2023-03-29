@@ -6,6 +6,6 @@ import javax.inject.Singleton
 
 @Singleton
 open class LoginFirebaseUseCase @Inject constructor(private val repository: IFirebaseRepository) {
-    open suspend operator fun invoke(email: String, password: String) =
+    open operator fun invoke(email: String, password: String) =
         repository.login(email, password)
 }

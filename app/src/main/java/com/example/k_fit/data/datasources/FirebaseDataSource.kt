@@ -34,21 +34,20 @@ class FirebaseDataSource @Inject constructor() {
         }
     }
 
-    suspend fun login(email: String, password: String): User = suspendCoroutine { continuation ->
+    fun login(email: String, password: String): Flow<User> = flow {
         var currentUser: User = User()
-
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { result ->
-            if (result.isSuccessful) {
-                val userInfo = auth.currentUser
-                val docRef = db.collection("users").document(userInfo!!.uid)
-                docRef.get().addOnSuccessListener { documentSnapshot ->
-                    currentUser = documentSnapshot.toObject(User::class.java)!!
-                    continuation.resume(currentUser)
-                }
-            } else {
-                Log.e("Login Failed ", result.exception.toString())
-                continuation.resume(currentUser)
+        try {
+            auth.signInWithEmailAndPassword(email, password).await()
+            val userInfo = auth.currentUser
+            val docRef = db.collection("users").document(userInfo!!.uid)
+            docRef.get().addOnSuccessListener { documentSnapshot ->
+                currentUser = documentSnapshot.toObject(User::class.java)!!
             }
+            emit(currentUser)
+        } catch (e: Exception) {
+            Log.e("Firebase login error: ", e.toString())
+            throw e
         }
     }
+
 }

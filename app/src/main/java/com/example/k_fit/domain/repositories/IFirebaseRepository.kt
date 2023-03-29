@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface IFirebaseRepository {
     fun register(createNewUser: CreateNewUser, password: String): Flow<Result<Unit>>
-    suspend fun login(email: String, password: String) : User
+    fun login(email: String, password: String): Flow<User>
 }

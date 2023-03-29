@@ -2,12 +2,12 @@ package com.example.k_fit.data.repositories
 
 import com.example.k_fit.data.datasources.FirebaseDataSource
 import com.example.k_fit.data.mappers.toService
+import com.example.k_fit.data.models.User
 import com.example.k_fit.domain.models.CreateNewUser
 import com.example.k_fit.domain.repositories.IFirebaseRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
-import com.example.k_fit.data.models.User
-import kotlinx.coroutines.flow.Flow
 
 @Singleton
 class FirebaseRepository @Inject constructor(private val firebaseDataSource: FirebaseDataSource) :
@@ -17,7 +17,7 @@ class FirebaseRepository @Inject constructor(private val firebaseDataSource: Fir
         return firebaseDataSource.register(createNewUser.toService(), password)
     }
 
-    override suspend fun login(email: String, password: String): User {
+    override fun login(email: String, password: String): Flow<User> {
         return firebaseDataSource.login(email, password)
     }
 }
