@@ -19,6 +19,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.R
 import com.example.k_fit.ScreenRoute
 import com.example.k_fit.presentation.components.CustomNavigationDrawerComponent
+import com.example.k_fit.ui.theme.scrim
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -75,12 +77,21 @@ fun MainPageScreen(
         drawerContent = {
             CustomNavigationDrawerComponent(
                 modifier = modifier,
+                onChoiceClick = {
+                    scope.launch {
+                        scaffoldState.drawerState.apply {
+                            delay(300)
+                            if (isClosed) open() else close()
+                        }
+                    }
+                },
                 selectedIndex = selectedIndex,
                 onNavigationItemSelected = { index ->
                     selectedIndex = index
                 }
             )
         },
+        drawerScrimColor = MaterialTheme.colors.scrim,
         drawerShape = RoundedCornerShape(topEnd = 32.dp, bottomEnd = 32.dp),
         content = { paddingValues ->
             when (selectedIndex) {
