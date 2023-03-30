@@ -1,5 +1,6 @@
 package com.example.k_fit.presentation.features.login
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -10,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,7 +22,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.R
 import com.example.k_fit.ScreenRoute
 import com.example.k_fit.presentation.components.CustomButtonComponent
-import com.example.k_fit.presentation.components.CustomErrorMessageComponent
 import com.example.k_fit.presentation.components.CustomInputPasswordComponent
 import com.example.k_fit.presentation.components.CustomInputTextComponent
 
@@ -30,6 +31,7 @@ fun LoginScreen(
 ) {
     val loginState by viewModel.loginState.collectAsState()
     val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
 
     Column(
         verticalArrangement = Arrangement.Bottom,
@@ -54,7 +56,7 @@ fun LoginScreen(
             imeAction = ImeAction.Done,
             onValueChange = { viewModel.updatePassword(it) })
         if (loginState.errorMessage)
-            CustomErrorMessageComponent(errorMessage = R.string.wrong_credential)
+            Toast.makeText(context, R.string.wrong_credential, Toast.LENGTH_SHORT).show()
         Spacer(modifier = Modifier.padding(top = 100.dp))
         CustomButtonComponent(title = "Login") {
             viewModel.login {
