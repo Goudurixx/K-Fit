@@ -1,6 +1,7 @@
 package com.example.k_fit.presentation.features.register
 
 import androidx.compose.foundation.background
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.LinearProgressIndicator
@@ -55,6 +56,9 @@ fun RegisterScreen(
                 CustomRedirectionButton({
                     viewModel.updateScreenStep(registerState.screenStep - 1)
                 }, Icons.Filled.ArrowBack, "Go Back")
+                BackHandler() {
+                    viewModel.updateScreenStep(registerState.screenStep - 1)
+                }
                 Spacer(modifier = Modifier.width(20.dp))
                 if (registerState.screenStep == 3f)
                     CustomRedirectionButton({
