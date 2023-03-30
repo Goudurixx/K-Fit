@@ -2,6 +2,7 @@ package com.example.k_fit.presentation.features.register
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.util.Log
 import android.widget.DatePicker
 import androidx.lifecycle.viewModelScope
 import com.example.k_fit.R
@@ -176,7 +177,7 @@ class RegisterViewModel @Inject constructor(
 
     fun registerUser(redirection: () -> Unit) {
         viewModelScope.launch(CoroutineExceptionHandler { _, e ->
-            println("Error to register request")
+            Log.e("Error to register request", e.toString())
         }) {
             registerFirebaseUseCase(
                 CreateNewUser(
@@ -189,8 +190,10 @@ class RegisterViewModel @Inject constructor(
                     _registerProfileState.value.weight,
                     _registerProfileState.value.height
                 ), _registerProfileState.value.password
-            )
-            redirection()
+            ).collect { result ->
+                if (result.isSuccess)
+                    redirection()
+            }
         }
     }
 }
