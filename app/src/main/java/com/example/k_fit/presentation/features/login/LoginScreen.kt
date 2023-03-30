@@ -31,6 +31,13 @@ fun LoginScreen(
     val loginState by viewModel.loginState.collectAsState()
     val focusManager = LocalFocusManager.current
 
+    fun login(){
+        viewModel.login {
+            navHostController.navigate(ScreenRoute.MainPage.route) {
+                popUpTo(ScreenRoute.LoginOrRegister.route) { inclusive = true }
+            }
+        }
+    }
     Column(
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,22 +53,20 @@ fun LoginScreen(
         CustomInputTextComponent(
             title = "Email",
             onValueChange = { viewModel.updateEmail(it) },
-            inputText = loginState.email
+            inputText = loginState.email,
+            imeAction = ImeAction.Next
         )
         CustomInputPasswordComponent(
             title = "Password",
             inputPassword = loginState.password,
             imeAction = ImeAction.Done,
+            keyboardActions = { login() },
             onValueChange = { viewModel.updatePassword(it) })
         if (loginState.errorMessage)
             CustomErrorMessageComponent(errorMessage = R.string.wrong_credential)
         Spacer(modifier = Modifier.padding(top = 100.dp))
         CustomButtonComponent(title = "Login") {
-            viewModel.login {
-                navHostController.navigate(ScreenRoute.MainPage.route) {
-                    popUpTo(ScreenRoute.LoginOrRegister.route) { inclusive = true }
-                }
-            }
+            login()
         }
     }
 }

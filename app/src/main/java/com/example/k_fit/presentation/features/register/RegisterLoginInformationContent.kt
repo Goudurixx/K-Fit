@@ -30,14 +30,15 @@ fun RegisterLoginInformationContent(
             title = "E-mail",
             inputText = registerState.email,
             onValueChange = { viewModel.updateEmail(it) },
-            keyboardType = KeyboardType.Email
+            keyboardType = KeyboardType.Email,
+            imeAction = ImeAction.Next
         )
         if (!registerState.isEmailValid) {
           CustomErrorMessageComponent(errorMessage = R.string.wrong_email)
         }
         CustomInputPasswordComponent(
             title = "Password",
-            inputPassword = registerState.password,
+            inputPassword = registerState.password ,
             onValueChange = { viewModel.updatePassword(it) },
             imeAction = ImeAction.Next
         )
