@@ -3,11 +3,11 @@ package com.example.k_fit.presentation.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -32,7 +32,7 @@ fun CustomInputTextComponent(
             placeholder = { Text(title) },
             onValueChange = onValueChange,
             textStyle = TextStyle(
-                fontSize = 20.sp, color = Color.Black
+                fontSize = 20.sp, color = MaterialTheme.colors.onSurface
             ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType, imeAction = ImeAction.Next
