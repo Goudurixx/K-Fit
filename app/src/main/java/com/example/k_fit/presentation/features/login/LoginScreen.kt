@@ -1,7 +1,9 @@
 package com.example.k_fit.presentation.features.login
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -29,7 +31,8 @@ fun LoginScreen(
     val loginState by viewModel.loginState.collectAsState()
     val focusManager = LocalFocusManager.current
 
-    Column(verticalArrangement = Arrangement.Bottom,
+    Column(
+        verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxHeight()
@@ -38,17 +41,20 @@ fun LoginScreen(
                     focusManager.clearFocus()
                 })
             }
+            .background(color = MaterialTheme.colors.background)
             .padding(horizontal = 16.dp, vertical = 183.dp)) {
         CustomInputTextComponent(
             title = "Email",
             onValueChange = { viewModel.updateEmail(it) },
             inputText = loginState.email
         )
-        CustomInputPasswordComponent(title = "Password",
+        CustomInputPasswordComponent(
+            title = "Password",
             inputPassword = loginState.password,
             imeAction = ImeAction.Done,
             onValueChange = { viewModel.updatePassword(it) })
-        if (loginState.errorMessage) CustomErrorMessageComponent(errorMessage = R.string.wrong_credential)
+        if (loginState.errorMessage)
+            CustomErrorMessageComponent(errorMessage = R.string.wrong_credential)
         Spacer(modifier = Modifier.padding(top = 100.dp))
         CustomButtonComponent(title = "Login") {
             viewModel.login { navHostController.navigate(ScreenRoute.MainPage.route) }

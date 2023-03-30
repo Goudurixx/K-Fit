@@ -1,6 +1,9 @@
 package com.example.k_fit.presentation.features.userProfile
 
+
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -21,12 +24,14 @@ import com.example.k_fit.presentation.components.CustomRedirectionButton
 fun UserProfileScreen(navHostController: NavHostController) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(horizontal = 16.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colors.background)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp, bottom = 64.dp),
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 64.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             CustomRedirectionButton(
@@ -43,7 +48,9 @@ fun UserProfileScreen(navHostController: NavHostController) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(32.dp),
-            modifier = Modifier.fillMaxHeight()
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(horizontal = 16.dp)
         ) {
             CustomInputTextComponent(title = "Nickname", onValueChange = {}, inputText = "Batman")
             CustomInputTextComponent(title = "Firstname", onValueChange = {}, inputText = "Bruce")

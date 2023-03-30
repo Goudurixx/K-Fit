@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.presentation.features.login.LoginScreen
 import com.example.k_fit.presentation.features.loginOrRegister.LoginOrRegisterScreen
-import com.example.k_fit.presentation.features.mainPage.MainPage
+import com.example.k_fit.presentation.features.mainPage.MainPageScreen
 import com.example.k_fit.presentation.features.register.RegisterScreen
 import com.example.k_fit.presentation.features.userProfile.UserProfileScreen
 
@@ -27,10 +27,10 @@ fun Router() {
             LoginScreen(navHostController)
         }
         composable(ScreenRoute.MainPage.route) {
-            MainPage(navHostController)
+            MainPageScreen(navHostController)
         }
         composable(ScreenRoute.UserProfile.route) {
-            UserProfileScreen(navHostController)
+          UserProfileScreen(navHostController)
         }
     }
 }
