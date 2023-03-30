@@ -51,7 +51,11 @@ fun LoginScreen(
         if (loginState.errorMessage) CustomErrorMessageComponent(errorMessage = R.string.wrong_credential)
         Spacer(modifier = Modifier.padding(top = 100.dp))
         CustomButtonComponent(title = "Login") {
-            viewModel.login { navHostController.navigate(ScreenRoute.MainPage.route) }
+            viewModel.login {
+                navHostController.navigate(ScreenRoute.MainPage.route) {
+                    popUpTo(ScreenRoute.LoginOrRegister.route) { inclusive = true }
+                }
+            }
         }
     }
 }
