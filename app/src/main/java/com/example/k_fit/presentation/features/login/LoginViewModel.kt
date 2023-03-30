@@ -35,7 +35,7 @@ class LoginViewModel @Inject constructor(
 
     fun login(redirection: () -> Unit) {
         viewModelScope.launch(CoroutineExceptionHandler { _, e ->
-            println("Error to login request")
+            Log.e("Error: ", "Login request failed")
         }) {
             loginFirebaseUseCase(_loginState.value.email, _loginState.value.password)
                 .catch { e ->
