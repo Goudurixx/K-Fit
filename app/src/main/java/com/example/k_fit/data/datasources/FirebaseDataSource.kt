@@ -23,7 +23,7 @@ class FirebaseDataSource @Inject constructor() {
             val result = auth.createUserWithEmailAndPassword(newUser.email, password).await()
             val uid = result.user?.uid ?: throw IllegalStateException("User ID is null")
             if (uid.isNotEmpty())
-                db.collection("users").document(auth.currentUser!!.uid).set(newUser)
+                db.collection("users").document(uid).set(newUser)
                     .addOnCompleteListener {
                         println("User successfully create")
                     }
