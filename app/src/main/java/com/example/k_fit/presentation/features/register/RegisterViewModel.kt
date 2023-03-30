@@ -12,7 +12,9 @@ import com.example.k_fit.presentation.base.BaseViewModel
 import com.example.k_fit.presentation.common.Gender
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.*
 import java.util.regex.Matcher
@@ -27,8 +29,6 @@ class RegisterViewModel @Inject constructor(
     private val _registerProfileState = MutableStateFlow(RegisterProfileState())
     val registerProfileState: StateFlow<RegisterProfileState> = _registerProfileState
 
-    private val _registerResult = MutableStateFlow<Result<Unit>>(Result.success(Unit))
-    val registerResult: StateFlow<Result<Unit>> = _registerResult
     fun updateScreenStep(step: Float) {
         _registerProfileState.update { currentState ->
             currentState.copy(screenStep = step)
@@ -190,12 +190,10 @@ class RegisterViewModel @Inject constructor(
                     _registerProfileState.value.weight,
                     _registerProfileState.value.height
                 ), _registerProfileState.value.password
-            ).onStart { _registerResult.value = Result.success(Unit) }
-                .onEach { result -> _registerResult.value = result }
-                .collect { result ->
-                    if (result.isSuccess)
-                        redirection()
-                }
+            ).collect { result ->
+                if (result.isSuccess)
+                    redirection()
+            }
         }
     }
 }

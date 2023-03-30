@@ -49,5 +49,4 @@ class FirebaseDataSource @Inject constructor() {
             throw e
         }
     }
-
 }
