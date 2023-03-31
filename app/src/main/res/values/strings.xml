@@ -6,5 +6,5 @@
     <string name="wrong_email">The email address you entered is not valid.</string>
     <string name="wrong_password">Your password must be at least 6 characters long and must contain A-Z. Lowercase letters: a-z. Numbers: 0-9. Symbols: ~`!</string>
     <string name="empty_form">All field must be filled</string>
-    <string name="wrong_credential">We couldn’t find an account matching the username and password you entered. Please check your username and password and try again.</string>
+    <string name="wrong_credential">The email or password is incorrect. Please try again</string>
 </resources>
