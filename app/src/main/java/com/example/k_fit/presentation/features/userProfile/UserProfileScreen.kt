@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Logout
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,18 +53,11 @@ fun UserProfileScreen(navHostController: NavHostController) {
                 .fillMaxHeight()
                 .padding(horizontal = 16.dp)
         ) {
-            CustomInputTextComponent(title = "Nickname", onValueChange = {}, inputText = "Batman")
-            CustomInputTextComponent(title = "Firstname", onValueChange = {}, inputText = "Bruce")
-            CustomInputTextComponent(title = "Lastname", onValueChange = {}, inputText = "Wayne")
-            CustomInputTextComponent(
-                title = "Weight",
-                inputText = "78",
-                onValueChange = {
-                },
-                trailingIcon = { Text(text = "kg") },
-                keyboardType = KeyboardType.Number,
-            )
-            CustomButtonComponent(title = "Confirm", {})
+            CustomInputTextComponent(title = "Nickname", onValueChange = {}, inputText = "Batman", imeAction = ImeAction.Next)
+            CustomInputTextComponent(title = "Firstname", onValueChange = {}, inputText = "Bruce", imeAction = ImeAction.Next)
+            CustomInputTextComponent(title = "Lastname", onValueChange = {}, inputText = "Wayne", imeAction = ImeAction.Next)
+            CustomInputTextComponent(title = "Weight", onValueChange = {} , inputText = "78", trailingIcon = { Text(text = "kg") }, keyboardType = KeyboardType.Number, imeAction = ImeAction.Done)
+            CustomButtonComponent(title = "Confirm"){}
         }
     }
 }

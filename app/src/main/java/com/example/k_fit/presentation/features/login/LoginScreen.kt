@@ -48,23 +48,31 @@ fun LoginScreen(
         CustomInputTextComponent(
             title = "Email",
             onValueChange = { viewModel.updateEmail(it) },
-            inputText = loginState.email
+            inputText = loginState.email,
+            imeAction = ImeAction.Next
         )
         CustomInputPasswordComponent(
             title = "Password",
             inputPassword = loginState.password,
             imeAction = ImeAction.Done,
+            keyboardActions = {
+                viewModel.login {
+                    navHostController.navigate(ScreenRoute.MainPage.route) {
+                        popUpTo(ScreenRoute.LoginOrRegister.route) { inclusive = true }
+                    }
+                }
+            },
             onValueChange = { viewModel.updatePassword(it) })
         if (loginState.errorMessage)
             Toast.makeText(context, R.string.wrong_credential, Toast.LENGTH_SHORT).show()
         Spacer(modifier = Modifier.padding(top = 100.dp))
-        CustomButtonComponent(title = "Login") {
+        CustomButtonComponent(title = "Login", onClick = {
             viewModel.login {
                 navHostController.navigate(ScreenRoute.MainPage.route) {
                     popUpTo(ScreenRoute.LoginOrRegister.route) { inclusive = true }
                 }
             }
-        }
+        })
     }
 }
 

@@ -1,7 +1,7 @@
 package com.example.k_fit.presentation.features.register
 
-import androidx.compose.foundation.background
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.LinearProgressIndicator
@@ -27,7 +27,8 @@ import com.example.k_fit.presentation.components.CustomRedirectionButton
 
 @Composable
 fun RegisterScreen(
-    navHostController: NavHostController, viewModel: RegisterViewModel = hiltViewModel()
+    navHostController: NavHostController,
+    viewModel: RegisterViewModel = hiltViewModel()
 ) {
     val registerState by viewModel.registerProfileState.collectAsState()
     val focusManager = LocalFocusManager.current
@@ -45,7 +46,7 @@ fun RegisterScreen(
         when (registerState.screenStep) {
             1f -> RegisterLoginInformationContent(viewModel)
             2f -> RegisterPersonalInformation(viewModel)
-            3f -> RegisterWeightAndHeightContent(viewModel)
+            3f -> RegisterWeightAndHeightContent(navHostController, viewModel)
         }
         if (!registerState.isScreenValid) CustomErrorMessageComponent(errorMessage = R.string.empty_form)
         Row(
@@ -56,7 +57,7 @@ fun RegisterScreen(
                 CustomRedirectionButton({
                     viewModel.updateScreenStep(registerState.screenStep - 1)
                 }, Icons.Filled.ArrowBack, "Go Back")
-                BackHandler() {
+                BackHandler {
                     viewModel.updateScreenStep(registerState.screenStep - 1)
                 }
                 Spacer(modifier = Modifier.width(20.dp))
