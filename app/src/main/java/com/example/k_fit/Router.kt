@@ -5,7 +5,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.presentation.features.login.LoginScreen
-import com.example.k_fit.presentation.features.loginOrRegister.LoginOrRegisterScreen
 import com.example.k_fit.presentation.features.mainPage.MainPageScreen
 import com.example.k_fit.presentation.features.register.RegisterScreen
 import com.example.k_fit.presentation.features.userProfile.UserProfileScreen
@@ -15,11 +14,8 @@ fun Router() {
     val navHostController = rememberNavController()
     NavHost(
         navController = navHostController,
-        startDestination = ScreenRoute.LoginOrRegister.route
+        startDestination = ScreenRoute.Login.route
     ) {
-        composable(ScreenRoute.LoginOrRegister.route) {
-            LoginOrRegisterScreen(navHostController)
-        }
         composable(ScreenRoute.Register.route) {
             RegisterScreen(navHostController)
         }
@@ -36,7 +32,6 @@ fun Router() {
 }
 
 sealed class ScreenRoute(val route: String) {
-    object LoginOrRegister : ScreenRoute("loginOrRegister")
     object Login : ScreenRoute("login")
     object Register : ScreenRoute("register")
     object MainPage : ScreenRoute("mainPage")

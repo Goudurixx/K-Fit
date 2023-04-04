@@ -1,11 +1,13 @@
 package com.example.k_fit.presentation.features.register
 
-import androidx.compose.foundation.background
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -64,7 +66,7 @@ fun RegisterScreen(
                     CustomRedirectionButton({
                         viewModel.isFormValid()
                         if (viewModel.registerProfileState.value.isScreenValid) {
-                            viewModel.registerUser { navHostController.navigate(ScreenRoute.LoginOrRegister.route) }
+                            viewModel.registerUser { navHostController.navigate(ScreenRoute.Login.route) }
                         }
                     }, Icons.Filled.Check, "Validate")
             }
@@ -75,6 +77,14 @@ fun RegisterScreen(
                 }
             }, Icons.Filled.ArrowForward, "Go Forward")
         }
+        Text(
+            text = "Already an user ? LOGIN",
+            modifier = Modifier
+                .padding(16.dp)
+                .clickable(onClick =
+                { navHostController.navigate(ScreenRoute.Login.route) }
+                )
+        )
         LinearProgressIndicator(
             progress = ((registerState.screenStep * 0.333) % 1).toFloat(),
             modifier = Modifier.padding(bottom = 64.dp)

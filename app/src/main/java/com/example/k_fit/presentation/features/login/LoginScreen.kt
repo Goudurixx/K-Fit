@@ -1,9 +1,11 @@
 package com.example.k_fit.presentation.features.login
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -58,11 +60,17 @@ fun LoginScreen(
         Spacer(modifier = Modifier.padding(top = 100.dp))
         CustomButtonComponent(title = "Login") {
             viewModel.login {
-                navHostController.navigate(ScreenRoute.MainPage.route) {
-                    popUpTo(ScreenRoute.LoginOrRegister.route) { inclusive = true }
-                }
+                navHostController.navigate(ScreenRoute.MainPage.route)
             }
         }
+        Text(
+            text = "Not yet an user ? REGISTER",
+            modifier = Modifier
+                .padding(16.dp)
+                .clickable(onClick =
+                { navHostController.navigate(ScreenRoute.Register.route) }
+                )
+        )
     }
 }
 
