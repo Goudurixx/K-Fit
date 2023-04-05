@@ -66,7 +66,7 @@ fun RegisterWeightAndHeightContent(
             keyboardActions = {
                 viewModel.isFormValid()
                 if (viewModel.registerProfileState.value.isScreenValid) {
-                    viewModel.registerUser { navHostController.navigate(ScreenRoute.LoginOrRegister.route) }
+                    viewModel.registerUser { navHostController.navigate(ScreenRoute.Login.route) }
                 }
             }
         )
