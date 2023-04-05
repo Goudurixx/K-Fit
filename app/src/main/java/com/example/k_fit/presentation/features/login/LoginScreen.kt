@@ -59,7 +59,7 @@ fun LoginScreen(
             imeAction = ImeAction.Done,
             keyboardActions = {
                 viewModel.login {
-                    navHostController.navigate(ScreenRoute.Login.route)
+                    navHostController.navigate(ScreenRoute.MainPage.route)
                 }
             },
             onValueChange = { viewModel.updatePassword(it) })
