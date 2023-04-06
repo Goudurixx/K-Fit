@@ -47,4 +47,14 @@ class FirebaseDataSource @Inject constructor() {
             throw e
         }
     }
+
+    fun signOut(){
+        try {
+            auth.signOut()
+        }
+        catch (e: Exception){
+            Log.e("Firebase disconnect error: ", e.toString())
+            throw e
+        }
+    }
 }
