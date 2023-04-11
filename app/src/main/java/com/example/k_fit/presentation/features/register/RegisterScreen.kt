@@ -3,7 +3,6 @@ package com.example.k_fit.presentation.features.register
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.LinearProgressIndicator
@@ -68,7 +67,13 @@ fun RegisterScreen(
                     CustomRedirectionButton({
                         viewModel.isFormValid()
                         if (viewModel.registerProfileState.value.isScreenValid) {
-                            viewModel.registerUser { navHostController.navigate(ScreenRoute.Login.route) }
+                            viewModel.registerUser {
+                                navHostController.navigate(ScreenRoute.Login.route) {
+                                    popUpTo(ScreenRoute.Login.route) {
+                                        inclusive = true
+                                    }
+                                }
+                            }
                         }
                     }, Icons.Filled.Check, "Validate")
             }
@@ -84,7 +89,13 @@ fun RegisterScreen(
             modifier = Modifier
                 .padding(16.dp)
                 .clickable(onClick =
-                { navHostController.navigate(ScreenRoute.Login.route) }
+                {
+                    navHostController.navigate(ScreenRoute.Login.route) {
+                        popUpTo(ScreenRoute.Login.route) {
+                            inclusive = true
+                        }
+                    }
+                }
                 )
         )
         LinearProgressIndicator(
