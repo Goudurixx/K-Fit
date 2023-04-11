@@ -59,7 +59,11 @@ fun LoginScreen(
             imeAction = ImeAction.Done,
             keyboardActions = {
                 viewModel.login {
-                    navHostController.navigate(ScreenRoute.MainPage.route)
+                    navHostController.navigate(ScreenRoute.MainPage.route) {
+                        popUpTo(ScreenRoute.MainPage.route) {
+                            inclusive = true
+                        }
+                    }
                 }
             },
             onValueChange = { viewModel.updatePassword(it) })
@@ -68,7 +72,11 @@ fun LoginScreen(
         Spacer(modifier = Modifier.padding(top = 100.dp))
         CustomButtonComponent(title = "Login") {
             viewModel.login {
-                navHostController.navigate(ScreenRoute.MainPage.route)
+                navHostController.navigate(ScreenRoute.MainPage.route) {
+                    popUpTo(ScreenRoute.Login.route) {
+                        inclusive = true
+                    }
+                }
             }
         }
         Text(
@@ -76,7 +84,13 @@ fun LoginScreen(
             modifier = Modifier
                 .padding(16.dp)
                 .clickable(onClick =
-                { navHostController.navigate(ScreenRoute.Register.route) }
+                {
+                    navHostController.navigate(ScreenRoute.Register.route) {
+                        popUpTo(ScreenRoute.Register.route) {
+                            inclusive = true
+                        }
+                    }
+                }
                 )
         )
     }
