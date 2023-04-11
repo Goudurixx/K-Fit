@@ -1,6 +1,7 @@
 package com.example.k_fit.presentation.features.userProfile
 
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.filled.Logout
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,7 +28,9 @@ import com.example.k_fit.presentation.components.CustomInputTextComponent
 import com.example.k_fit.presentation.components.CustomRedirectionButton
 
 @Composable
-fun UserProfileScreen(navHostController: NavHostController, ) {
+fun UserProfileScreen(navHostController: NavHostController) {
+
+    val toast: Toast = Toast.makeText(LocalContext.current, "Disconnected", Toast.LENGTH_LONG)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -56,6 +60,7 @@ fun UserProfileScreen(navHostController: NavHostController, ) {
                             inclusive = true
                         }
                     }
+                    toast.show()
                 },
                 imageVector = Icons.Filled.Logout,
                 description = "Logout"
