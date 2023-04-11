@@ -17,19 +17,17 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.R
 import com.example.k_fit.ScreenRoute
-import com.example.k_fit.data.datasources.FirebaseDataSource
-import com.example.k_fit.data.repositories.FirebaseRepository
-import com.example.k_fit.domain.usecases.auth.SignOutFirebaseUseCase
 import com.example.k_fit.presentation.components.CustomButtonComponent
 import com.example.k_fit.presentation.components.CustomInputTextComponent
 import com.example.k_fit.presentation.components.CustomRedirectionButton
 
 @Composable
-fun UserProfileScreen(navHostController: NavHostController) {
+fun UserProfileScreen(navHostController: NavHostController, viewModel: UserProfileViewModel = hiltViewModel()) {
     val context = LocalContext.current
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,11 +48,7 @@ fun UserProfileScreen(navHostController: NavHostController) {
             )
             CustomRedirectionButton(
                 onClick = {
-                    SignOutFirebaseUseCase(
-                        FirebaseRepository(
-                            FirebaseDataSource()
-                        )
-                    )
+                    viewModel.signOut()
                     navHostController.navigate(ScreenRoute.Login.route){
                         popUpTo(ScreenRoute.Login.route) {
                             inclusive = true
