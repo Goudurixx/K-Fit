@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.k_fit.R
 import com.example.k_fit.ScreenRoute
 import com.example.k_fit.data.datasources.FirebaseDataSource
 import com.example.k_fit.data.repositories.FirebaseRepository
@@ -29,8 +30,7 @@ import com.example.k_fit.presentation.components.CustomRedirectionButton
 
 @Composable
 fun UserProfileScreen(navHostController: NavHostController) {
-
-    val toast: Toast = Toast.makeText(LocalContext.current, "Disconnected", Toast.LENGTH_LONG)
+    val context = LocalContext.current
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -60,7 +60,7 @@ fun UserProfileScreen(navHostController: NavHostController) {
                             inclusive = true
                         }
                     }
-                    toast.show()
+                    Toast.makeText(context, R.string.disconnected, Toast.LENGTH_LONG).show()
                 },
                 imageVector = Icons.Filled.Logout,
                 description = "Logout"
