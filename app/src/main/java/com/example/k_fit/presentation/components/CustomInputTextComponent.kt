@@ -2,6 +2,8 @@ package com.example.k_fit.presentation.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActionScope
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -22,7 +24,9 @@ fun CustomInputTextComponent(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     trailingIcon: @Composable() (() -> Unit)? = null,
-    keyboardType: KeyboardType = KeyboardType.Text
+    keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction,
+    keyboardActions: (KeyboardActionScope.() -> Unit)? = null
 ) {
     Column {
         OutlinedTextField(
@@ -35,7 +39,10 @@ fun CustomInputTextComponent(
                 fontSize = 20.sp, color = MaterialTheme.colors.onSurface
             ),
             keyboardOptions = KeyboardOptions(
-                keyboardType = keyboardType, imeAction = ImeAction.Next
+                keyboardType = keyboardType, imeAction = imeAction,
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = keyboardActions
             ),
             modifier = modifier.fillMaxWidth(),
             readOnly = false,
@@ -54,5 +61,6 @@ fun PreviewCustomInputTextComponent() {
         "Title of the input",
         onValueChange = onValueChange,
         inputText = inputText,
+        imeAction = ImeAction.Done
     )
 }

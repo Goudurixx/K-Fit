@@ -20,4 +20,8 @@ class FirebaseRepository @Inject constructor(private val firebaseDataSource: Fir
     override fun login(email: String, password: String): Flow<User> {
         return firebaseDataSource.login(email, password)
     }
+
+    override suspend fun signOut() {
+        return firebaseDataSource.signOut()
+    }
 }

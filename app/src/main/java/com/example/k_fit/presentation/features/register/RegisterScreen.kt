@@ -1,11 +1,13 @@
 package com.example.k_fit.presentation.features.register
 
-import androidx.compose.foundation.background
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -27,7 +29,8 @@ import com.example.k_fit.presentation.components.CustomRedirectionButton
 
 @Composable
 fun RegisterScreen(
-    navHostController: NavHostController, viewModel: RegisterViewModel = hiltViewModel()
+    navHostController: NavHostController,
+    viewModel: RegisterViewModel = hiltViewModel()
 ) {
     val registerState by viewModel.registerProfileState.collectAsState()
     val focusManager = LocalFocusManager.current
@@ -45,7 +48,7 @@ fun RegisterScreen(
         when (registerState.screenStep) {
             1f -> RegisterLoginInformationContent(viewModel)
             2f -> RegisterPersonalInformation(viewModel)
-            3f -> RegisterWeightAndHeightContent(viewModel)
+            3f -> RegisterWeightAndHeightContent(navHostController, viewModel)
         }
         if (!registerState.isScreenValid) CustomErrorMessageComponent(errorMessage = R.string.empty_form)
         Row(
@@ -56,7 +59,7 @@ fun RegisterScreen(
                 CustomRedirectionButton({
                     viewModel.updateScreenStep(registerState.screenStep - 1)
                 }, Icons.Filled.ArrowBack, "Go Back")
-                BackHandler() {
+                BackHandler {
                     viewModel.updateScreenStep(registerState.screenStep - 1)
                 }
                 Spacer(modifier = Modifier.width(20.dp))
@@ -64,7 +67,13 @@ fun RegisterScreen(
                     CustomRedirectionButton({
                         viewModel.isFormValid()
                         if (viewModel.registerProfileState.value.isScreenValid) {
-                            viewModel.registerUser { navHostController.navigate(ScreenRoute.LoginOrRegister.route) }
+                            viewModel.registerUser {
+                                navHostController.navigate(ScreenRoute.Login.route) {
+                                    popUpTo(ScreenRoute.Login.route) {
+                                        inclusive = true
+                                    }
+                                }
+                            }
                         }
                     }, Icons.Filled.Check, "Validate")
             }
@@ -75,6 +84,20 @@ fun RegisterScreen(
                 }
             }, Icons.Filled.ArrowForward, "Go Forward")
         }
+        Text(
+            text = "Already an user ? LOGIN",
+            modifier = Modifier
+                .padding(16.dp)
+                .clickable(onClick =
+                {
+                    navHostController.navigate(ScreenRoute.Login.route) {
+                        popUpTo(ScreenRoute.Login.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+                )
+        )
         LinearProgressIndicator(
             progress = ((registerState.screenStep * 0.333) % 1).toFloat(),
             modifier = Modifier.padding(bottom = 64.dp)

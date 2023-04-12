@@ -6,12 +6,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.example.k_fit.ScreenRoute
 import com.example.k_fit.presentation.components.CustomInputTextComponent
 
 @Composable
 fun RegisterWeightAndHeightContent(
+    navHostController: NavHostController,
     viewModel: RegisterViewModel
 ) {
     val registerState by viewModel.registerProfileState.collectAsState()
@@ -45,6 +49,7 @@ fun RegisterWeightAndHeightContent(
             },
             trailingIcon = { Text(text = "kg") },
             keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Next
         )
         CustomInputTextComponent(
             title = "Height",
@@ -56,7 +61,14 @@ fun RegisterWeightAndHeightContent(
                 }
             },
             trailingIcon = { Text(text = "cm") },
-            keyboardType = KeyboardType.Number
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Done,
+            keyboardActions = {
+                viewModel.isFormValid()
+                if (viewModel.registerProfileState.value.isScreenValid) {
+                    viewModel.registerUser { navHostController.navigate(ScreenRoute.Login.route) }
+                }
+            }
         )
     }
 }

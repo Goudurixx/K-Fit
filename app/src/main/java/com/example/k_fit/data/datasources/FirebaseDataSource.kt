@@ -59,4 +59,14 @@ class FirebaseDataSource @Inject constructor(private val userStorage: UserStorag
         if (user.firstName.isNotBlank())
             userStorage.saveUser(user)
     }.flowOn(Dispatchers.IO)
+
+    suspend fun signOut() {
+        try {
+            auth.signOut()
+            userStorage.clearUser()
+        } catch (e: Exception) {
+            Log.e("Firebase disconnect error: ", e.toString())
+            throw e
+        }
+    }
 }
