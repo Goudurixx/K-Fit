@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,6 +19,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.k_fit.R
 import com.example.k_fit.ScreenRoute
+import com.example.k_fit.data.storage.UserStorage
 import com.example.k_fit.presentation.components.CustomNavigationDrawerComponent
 import com.example.k_fit.ui.theme.scrim
 import kotlinx.coroutines.delay
@@ -33,7 +35,6 @@ fun MainPageScreen(
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     var title by remember { mutableStateOf("") }
-
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -110,7 +111,6 @@ fun MainPageScreen(
         }
     )
 }
-
 
 @Preview("Preview of the main Page of the application", showSystemUi = true)
 @Composable

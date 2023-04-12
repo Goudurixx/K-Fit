@@ -47,7 +47,7 @@ class LoginViewModel @Inject constructor(
                         currentState.copy(errorMessage = true)
                     }
                 }
-                .collect {
+                .collect {result ->
                     redirection()
                 }
         }
