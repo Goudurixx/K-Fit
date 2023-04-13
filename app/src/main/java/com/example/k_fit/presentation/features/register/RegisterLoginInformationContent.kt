@@ -1,5 +1,6 @@
 package com.example.k_fit.presentation.features.register
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -7,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -20,6 +23,9 @@ fun RegisterLoginInformationContent(
     viewModel: RegisterViewModel
 ) {
     val registerState by viewModel.registerProfileState.collectAsState()
+    val context = LocalContext.current
+
+    if(registerState.error != -1) Toast.makeText(context, stringResource(id = registerState.error), Toast.LENGTH_SHORT).show()
 
     Column(
         verticalArrangement = Arrangement.Center, modifier = Modifier.padding(
@@ -35,6 +41,9 @@ fun RegisterLoginInformationContent(
         )
         if (!registerState.isEmailValid) {
           CustomErrorMessageComponent(errorMessage = R.string.wrong_email)
+        }
+        if (!registerState.isEmailUnique) {
+            CustomErrorMessageComponent(errorMessage = R.string.unique_email)
         }
         CustomInputPasswordComponent(
             title = "Password",

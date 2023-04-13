@@ -29,6 +29,12 @@ class RegisterViewModel @Inject constructor(
     private val _registerProfileState = MutableStateFlow(RegisterProfileState())
     val registerProfileState: StateFlow<RegisterProfileState> = _registerProfileState
 
+    fun updateError(message: Int) {
+        _registerProfileState.update { currentState ->
+            currentState.copy(error = message)
+        }
+    }
+
     fun updateScreenStep(step: Float) {
         _registerProfileState.update { currentState ->
             currentState.copy(screenStep = step)
@@ -59,6 +65,7 @@ class RegisterViewModel @Inject constructor(
         val EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\$"
         pattern = Pattern.compile(EMAIL_PATTERN)
         matcher = pattern.matcher(email)
+        updateIsEmailUnique(true)
         _registerProfileState.update { currentState ->
             currentState.copy(isEmailValid = matcher.matches())
         }
@@ -68,7 +75,8 @@ class RegisterViewModel @Inject constructor(
     private fun updateIsPasswordValid(password: String?) {
         val pattern: Pattern
         val matcher: Matcher
-        val PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^!?*&+=-])(?=\\S+$).{6,}$"
+        val PASSWORD_PATTERN =
+            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^!?*&+=-])(?=\\S+$).{6,}$"
         pattern = Pattern.compile(PASSWORD_PATTERN)
         matcher = pattern.matcher(password)
         _registerProfileState.update { currentState ->
@@ -175,6 +183,12 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
+    fun updateIsEmailUnique(isEmailUnique: Boolean) {
+        _registerProfileState.update { currentState ->
+            currentState.copy(isEmailUnique = isEmailUnique)
+        }
+    }
+
     fun registerUser(redirection: () -> Unit) {
         viewModelScope.launch(CoroutineExceptionHandler { _, e ->
             Log.e("Error to register request", e.toString())
@@ -191,8 +205,30 @@ class RegisterViewModel @Inject constructor(
                     _registerProfileState.value.height
                 ), _registerProfileState.value.password
             ).collect { result ->
-                if (result.isSuccess)
+                result.onSuccess {
                     redirection()
+                    updateError(-1)
+                }
+                result.onFailure {
+                    val error = result.exceptionOrNull().toString()
+                    updateScreenStep(1f)
+                    when {
+                        error.contains("com.google.firebase.FirebaseNetworkException") -> {
+                            updateError(R.string.network_error)
+                        }
+                        error.contains("com.google.firebase.auth.FirebaseAuthUserCollisionException") -> {
+                            updateIsEmailUnique(false)
+                            updateError(R.string.unique_email)
+                        }
+                        else -> {
+                            Log.e(
+                                "ExceptionNotHandled",
+                                "The following exception isn't handled : $error"
+                            )
+                            updateError(R.string.exception_not_handled)
+                        }
+                    }
+                }
             }
         }
     }

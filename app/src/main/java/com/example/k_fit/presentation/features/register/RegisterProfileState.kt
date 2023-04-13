@@ -4,6 +4,8 @@ import com.example.k_fit.presentation.common.Gender
 
 data class RegisterProfileState(
     var screenStep: Float = 1.0f,
+    var isEmailUnique: Boolean = true,
+    var error: Int = -1 ,
     var email: String = "",
     var password: String = "",
     var passwordConfirm: String = "",
