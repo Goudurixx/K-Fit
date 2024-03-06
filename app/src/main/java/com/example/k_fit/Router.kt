@@ -29,7 +29,6 @@ fun Router(context: Context) {
             } else {
                 ScreenRoute.Login.route
             }
-            Thread.sleep(1500)
             navHostController.navigate(startDestination) {
                 popUpTo(navHostController.graph.startDestinationId)
                 launchSingleTop = true

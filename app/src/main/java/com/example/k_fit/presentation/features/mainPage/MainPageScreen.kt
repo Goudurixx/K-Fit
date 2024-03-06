@@ -105,7 +105,7 @@ fun MainPageScreen(
                     title = stringResource(id = R.string.favorite_screen_title)
                 }
                 else -> {
-                    Text("Screen not done")
+                    Text("Screen in construction...")
                 }
             }
         }
